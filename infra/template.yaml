@@ -1,0 +1,220 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Elden Ring AI Agent - Bedrock Knowledge Base + RAG
+
+Parameters:
+  KnowledgeBaseId:
+    Type: String
+    Description: Bedrock Knowledge Base ID (created manually in console after first deploy)
+    Default: PLACEHOLDER
+
+Globals:
+  Function:
+    Runtime: python3.12
+    Architectures: [x86_64]
+
+Resources:
+
+  # ── S3: Knowledge Base documents ──────────────────────────────────────────
+  KbDocsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub elden-ring-kb-docs-${AWS::AccountId}
+      VersioningConfiguration:
+        Status: Enabled
+
+  KbDocsBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref KbDocsBucket
+      PolicyDocument:
+        Statement:
+          # Allow Bedrock to read documents for Knowledge Base ingestion
+          - Effect: Allow
+            Principal:
+              Service: bedrock.amazonaws.com
+            Action:
+              - s3:GetObject
+              - s3:ListBucket
+            Resource:
+              - !GetAtt KbDocsBucket.Arn
+              - !Sub ${KbDocsBucket.Arn}/*
+            Condition:
+              StringEquals:
+                aws:SourceAccount: !Ref AWS::AccountId
+
+  # ── S3: Static web UI ─────────────────────────────────────────────────────
+  WebBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub elden-ring-web-${AWS::AccountId}
+
+  WebBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref WebBucket
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: cloudfront.amazonaws.com
+            Action: s3:GetObject
+            Resource: !Sub ${WebBucket.Arn}/*
+            Condition:
+              StringEquals:
+                AWS:SourceArn: !Sub arn:aws:cloudfront::${AWS::AccountId}:distribution/${CloudFrontDistribution}
+
+  # ── IAM: Lambda execution role ────────────────────────────────────────────
+  LambdaExecutionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub elden-ring-lambda-role-${AWS::Region}
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: EldenRingAgentPolicy
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action: bedrock:InvokeModel
+                Resource: !Sub arn:aws:bedrock:${AWS::Region}::foundation-model/us.anthropic.claude-haiku-4-5-20251001
+              - Effect: Allow
+                Action:
+                  - bedrock:Retrieve
+                  - bedrock:RetrieveAndGenerate
+                Resource: !Sub arn:aws:bedrock:${AWS::Region}:${AWS::AccountId}:knowledge-base/${KnowledgeBaseId}
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:ListBucket
+                Resource:
+                  - !GetAtt KbDocsBucket.Arn
+                  - !Sub ${KbDocsBucket.Arn}/*
+
+  # ── Lambda: weekly wiki scraper ───────────────────────────────────────────
+  ScraperFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: elden-ring-scraper
+      CodeUri: ../lambda/scraper/
+      Handler: scraper.handler
+      MemorySize: 512
+      Timeout: 900
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Environment:
+        Variables:
+          DOCS_BUCKET: !Ref KbDocsBucket
+
+  # ── Lambda: monthly Fan API fetcher ──────────────────────────────────────
+  FanApiFetcherFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: elden-ring-fan-api-fetcher
+      CodeUri: ../lambda/fan_api_fetcher/
+      Handler: fan_api_fetcher.handler
+      MemorySize: 256
+      Timeout: 300
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Environment:
+        Variables:
+          DOCS_BUCKET: !Ref KbDocsBucket
+      Events:
+        MonthlySchedule:
+          Type: Schedule
+          Properties:
+            Schedule: cron(0 2 ? * SUN *)
+            Description: Weekly Fan API entity data refresh (1st of each month)
+
+  # ── Lambda: query handler (RAG + inference) ───────────────────────────────
+  QueryHandlerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: elden-ring-query-handler
+      CodeUri: ../lambda/query_handler/
+      Handler: query_handler.handler
+      MemorySize: 256
+      Timeout: 30
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Environment:
+        Variables:
+          KB_ID: !Ref KnowledgeBaseId
+          BEDROCK_REGION: !Ref AWS::Region
+      Events:
+        AskPost:
+          Type: Api
+          Properties:
+            RestApiId: !Ref QueryApi
+            Path: /ask
+            Method: POST
+        AskOptions:
+          Type: Api
+          Properties:
+            RestApiId: !Ref QueryApi
+            Path: /ask
+            Method: OPTIONS
+
+  # ── API Gateway ───────────────────────────────────────────────────────────
+  QueryApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name: elden-ring-query-api
+      StageName: prod
+      Cors:
+        AllowMethods: "'POST,OPTIONS'"
+        AllowHeaders: "'Content-Type'"
+        AllowOrigin: "'*'"
+
+  # ── CloudFront: HTTPS for web UI ──────────────────────────────────────────
+  CloudFrontOAC:
+    Type: AWS::CloudFront::OriginAccessControl
+    Properties:
+      OriginAccessControlConfig:
+        Name: EldenRingWebOAC
+        OriginAccessControlOriginType: s3
+        SigningBehavior: always
+        SigningProtocol: sigv4
+
+  CloudFrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Enabled: true
+        DefaultRootObject: index.html
+        PriceClass: PriceClass_100
+        Origins:
+          - Id: WebS3Origin
+            DomainName: !GetAtt WebBucket.RegionalDomainName
+            S3OriginConfig: {}
+            OriginAccessControlId: !GetAtt CloudFrontOAC.Id
+        DefaultCacheBehavior:
+          TargetOriginId: WebS3Origin
+          ViewerProtocolPolicy: redirect-to-https
+          # CachingOptimized managed policy
+          CachePolicyId: 658327ea-f89d-4fab-a63d-7e88639e58f6
+          AllowedMethods: [GET, HEAD]
+
+Outputs:
+  ApiEndpoint:
+    Description: API Gateway endpoint — use this in web/index.html
+    Value: !Sub https://${QueryApi}.execute-api.${AWS::Region}.amazonaws.com/prod
+
+  WebsiteUrl:
+    Description: CloudFront URL for the web UI
+    Value: !Sub https://${CloudFrontDistribution.DomainName}
+
+  KbDocsBucketName:
+    Description: S3 bucket to upload KB documents into
+    Value: !Ref KbDocsBucket
+
+  WebBucketName:
+    Description: S3 bucket to upload web/index.html into
+    Value: !Ref WebBucket
