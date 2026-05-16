@@ -10,7 +10,7 @@ and spatial relationships — grounded in the Fextralife wiki and actual game da
 ## Architecture
 
 ```
-Fextralife wiki  ─► Lambda (manual scraper)   ─►┐
+Fextralife wiki  ─► local scraper script     ─►┐
 Fan API          ─► Lambda (weekly fetcher)   ─►│  S3 Bucket (KB docs)
 Game map (MSB)   ─► Smithbox+WitchyBND+script ─►│
 Kaggle dataset   ─► manual upload             ─►│
@@ -41,6 +41,21 @@ User ──► CloudFront ──► S3 (web/index.html)
 - Copy `.env.example` to `.env` and fill in your AWS account ID, region, and
   artifacts bucket name. `.env` is gitignored. `scripts/deploy.sh` sources it
   automatically.
+
+**Python environment** — set up a venv at the repo root for the local scripts
+(scraper, MSB extraction, S3 upload, lookup generation):
+
+```bash
+python -m venv .venv
+# Windows (PowerShell): .\.venv\Scripts\Activate.ps1
+# Windows (git-bash):   source .venv/Scripts/activate
+# macOS / Linux:        source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+`.venv/` is gitignored. Re-activate it in any new shell before running scripts
+under `scripts/`. Lambda functions under `lambda/` have their own
+`requirements.txt` files used by `sam build` — they're separate from this venv.
 
 ---
 
@@ -160,13 +175,13 @@ You need: `KbDocsBucketName`, `WebBucketName`, `ApiEndpoint`, `WebsiteUrl`
 # Upload spatial + Kaggle data ($KB_DOCS_BUCKET comes from .env)
 python scripts/upload_to_s3.py --bucket "$KB_DOCS_BUCKET"
 
-# Seed wiki docs by invoking the scraper once
-aws lambda invoke \
-  --function-name elden-ring-scraper \
-  --payload '{}' \
-  --log-type Tail \
-  response.json
+# Seed wiki docs by running the scraper locally (~1hr for full sitemap @ 1s/page)
+python scripts/run_scraper_local.py --bucket "$KB_DOCS_BUCKET"
 ```
+
+The scraper runs locally rather than as a Lambda because the full sitemap walk
+exceeds the 15-minute Lambda timeout. Use `--preserve` on later runs to skip
+URLs already in S3, or `--start-offset N` to resume an interrupted run.
 
 ---
 
@@ -220,8 +235,9 @@ aws cloudformation deploy \
 
 ## Keeping Data Fresh
 
-- **Wiki scraper:** No automatic schedule — invoke manually when you want fresh wiki content:
-  `aws lambda invoke --function-name elden-ring-scraper --payload '{}' out.json`
+- **Wiki scraper:** Run locally when you want fresh wiki content:
+  `python scripts/run_scraper_local.py --bucket "$KB_DOCS_BUCKET" --preserve`
+  (`--preserve` skips pages already in S3, so incremental refreshes are fast.)
 
 - **Fan API fetcher:** Runs automatically every Sunday at 02:00 UTC (`cron(0 2 ? * SUN *)`).
   Manual trigger: `aws lambda invoke --function-name elden-ring-fan-api-fetcher --payload '{}' out.json`

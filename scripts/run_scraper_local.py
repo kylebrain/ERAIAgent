@@ -6,7 +6,7 @@ Usage:
         [--limit N] [--batch-size N] [--start-offset N] [--preserve] [--print-every N]
 
 Loops through batches sequentially until the entire sitemap is processed
-(or --limit pages reached). No Lambda chaining is used locally.
+(or --limit pages reached).
 """
 import argparse
 import os
@@ -14,8 +14,7 @@ import sys
 import time
 from pathlib import Path
 
-REPO_ROOT = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(REPO_ROOT / "lambda" / "scraper"))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 
 def _fmt_duration(seconds: float) -> str:

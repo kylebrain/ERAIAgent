@@ -100,20 +100,6 @@ Resources:
                   - !GetAtt KbDocsBucket.Arn
                   - !Sub ${KbDocsBucket.Arn}/*
 
-  # ── Lambda: weekly wiki scraper ───────────────────────────────────────────
-  ScraperFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      FunctionName: elden-ring-scraper
-      CodeUri: ../lambda/scraper/
-      Handler: scraper.handler
-      MemorySize: 512
-      Timeout: 900
-      Role: !GetAtt LambdaExecutionRole.Arn
-      Environment:
-        Variables:
-          DOCS_BUCKET: !Ref KbDocsBucket
-
   # ── Lambda: monthly Fan API fetcher ──────────────────────────────────────
   FanApiFetcherFunction:
     Type: AWS::Serverless::Function
