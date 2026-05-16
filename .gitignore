@@ -228,3 +228,4 @@ spatial_docs/
 # Local secrets / generated build artifacts
 .env
 infra/packaged.yaml
+scripts/commands.sh

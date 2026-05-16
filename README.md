@@ -10,9 +10,9 @@ and spatial relationships — grounded in the Fextralife wiki and actual game da
 ## Architecture
 
 ```
-Fextralife wiki  ─► Lambda (weekly scraper)   ─►┐
-Fan API          ─► Lambda (monthly fetcher)  ─►│  S3 Bucket (KB docs)
-Game map (MSBE)  ─► Smithbox+WitchyBND+script ─►│
+Fextralife wiki  ─► Lambda (manual scraper)   ─►┐
+Fan API          ─► Lambda (weekly fetcher)   ─►│  S3 Bucket (KB docs)
+Game map (MSB)   ─► Smithbox+WitchyBND+script ─►│
 Kaggle dataset   ─► manual upload             ─►│
                                                │
                                                ▼
@@ -57,17 +57,30 @@ No need to unpack the game archives — Smithbox reads them directly.
 3. Create a new project: **File → New Project → Elden Ring** → point at `C:\Program Files (x86)\Steam\steamapps\common\ELDEN RING\Game`
 4. Open the **File Browser** panel (View → File Browser)
 5. Navigate to `map/mapstudio/` in the file tree
-6. Select all files (`Ctrl+A`), right-click → **Extract Selected** → save to a local folder, e.g. `C:\er-msb\`
-7. Result: `C:\er-msb\*.msb.dcx` — one file per map tile
+6. Select all files (`Ctrl+A`), right-click → **Extract Selected** → save to a local folder. Set `MSB_DIR` in your `.env` to this path.
+7. Result: `$MSB_DIR\*.msb.dcx` — one file per map tile
 
 **Step 0b — Serialize MSB files to XML with WitchyBND**
-1. Download **WitchyBND** from https://github.com/ividyon/WitchyBND/releases (grab `WitchyBND.zip`)
-2. Extract `witchybnd.exe` to a convenient folder
-3. Run:
+1. Download **WitchyBND** from https://github.com/ividyon/WitchyBND/releases (grab `WitchyBND.zip`) and extract it.
+2. Set both paths in your `.env` (use forward slashes):
+   - `WITCHYBND_EXE` — full path to `WitchyBND.exe`
+   - `MSB_DIR` — full path to the `mapstudio/` folder containing the `.msb.dcx` files from Step 0a
+3. From the repo root, generate the batched WitchyBND commands and run them:
    ```bash
-   ./witchybnd.exe --recursive "C:/er-msb/"
+   ./scripts/generate_witchy_commands.sh   # writes ./scripts/commands.sh
+   ./scripts/commands.sh
    ```
-4. Result: `C:\er-msb\<tile>.msb.dcx-witchy\*.xml` — one XML per map tile with all entity positions
+   The generator reads `.env`, finds every `.msb.dcx` in `$MSB_DIR`, and writes
+   one `WitchyBND.exe` call per line. The batch size is auto-computed from the
+   prefix length, the longest filename, and `CMDLINE_LIMIT` (default 8000, the
+   cmd.exe limit) so each line stays under the Windows command-line limit.
+   Override with `CMDLINE_LIMIT=32000 ./scripts/generate_witchy_commands.sh`.
+
+   To minimize per-line length, the generated `scripts/commands.sh` `cd`s into
+   `$MSB_DIR` and refers to files by basename; `WitchyBND.exe` is referenced
+   via a path relative to `$MSB_DIR` when that's shorter than the absolute
+   path. `scripts/commands.sh` is gitignored.
+4. Result: `$MSB_DIR/<tile>.msb.dcx-witchy/*.xml` — one XML per map tile with all entity positions.
 
 **Step 0c — Build spatial proximity documents**
 
@@ -77,7 +90,7 @@ Requires the lookup files under `./lookups/` (committed to the repo):
 
 ```bash
 python scripts/extract_msb_coordinates.py \
-  --msb-dir "C:/er-msb" \
+  --msb-dir "$MSB_DIR" \
   --output-dir ./spatial_docs \
   --radius 30
 ```
@@ -144,8 +157,8 @@ You need: `KbDocsBucketName`, `WebBucketName`, `ApiEndpoint`, `WebsiteUrl`
 ### Phase 2 — Upload Documents to S3
 
 ```bash
-# Upload spatial + Kaggle data
-python scripts/upload_to_s3.py --bucket <KbDocsBucketName>
+# Upload spatial + Kaggle data ($KB_DOCS_BUCKET comes from .env)
+python scripts/upload_to_s3.py --bucket "$KB_DOCS_BUCKET"
 
 # Seed wiki docs by invoking the scraper once
 aws lambda invoke \
@@ -174,7 +187,12 @@ Note the **Knowledge Base ID** (e.g. `ABCDE12345`).
 
 ### Phase 4 — Wire up the Knowledge Base ID
 
-Update the CloudFormation stack with the real KB ID:
+Set `KB_ID` in your `.env`, then redeploy via the wrapper:
+```bash
+scripts/deploy.sh "$KB_ID"
+```
+
+Or run the raw AWS CLI:
 ```bash
 aws cloudformation deploy \
   --template-file infra/packaged.yaml \
@@ -202,8 +220,11 @@ aws cloudformation deploy \
 
 ## Keeping Data Fresh
 
-- **Wiki:** Lambda runs automatically every Sunday at 02:00 UTC.
-  Manual trigger: `aws lambda invoke --function-name elden-ring-scraper --payload '{}' out.json`
+- **Wiki scraper:** No automatic schedule — invoke manually when you want fresh wiki content:
+  `aws lambda invoke --function-name elden-ring-scraper --payload '{}' out.json`
+
+- **Fan API fetcher:** Runs automatically every Sunday at 02:00 UTC (`cron(0 2 ? * SUN *)`).
+  Manual trigger: `aws lambda invoke --function-name elden-ring-fan-api-fetcher --payload '{}' out.json`
 
 - **Game data:** Re-run Phase 0 after game patches, then re-upload and re-sync the KB.
 
