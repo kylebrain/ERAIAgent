@@ -9,14 +9,35 @@ Uploads:
     ./kaggle/        -> s3://<bucket>/kaggle/
 """
 import argparse
-import os
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 import boto3
+from boto3.s3.transfer import TransferConfig
+from botocore.config import Config
 
 UPLOAD_DIRS = [
     ("./spatial_docs", "spatial/"),
     ("./kaggle", "kaggle/"),
 ]
+
+MAX_WORKERS = 16
+
+# Per-file transfer config: multi-part for files >8MB, 4 parallel parts each.
+TRANSFER_CONFIG = TransferConfig(
+    multipart_threshold=8 * 1024 * 1024,
+    multipart_chunksize=8 * 1024 * 1024,
+    max_concurrency=4,
+    use_threads=True,
+)
+
+
+def _upload_one(s3, bucket: str, local_file: Path, key: str):
+    s3.upload_file(
+        str(local_file), bucket, key,
+        ExtraArgs={"ContentType": "text/plain"},
+        Config=TRANSFER_CONFIG,
+    )
+    return key
 
 
 def upload_dir(s3, bucket: str, local_dir: Path, prefix: str):
@@ -24,22 +45,29 @@ def upload_dir(s3, bucket: str, local_dir: Path, prefix: str):
         print(f"  [skip] {local_dir} does not exist")
         return 0
 
-    files = list(local_dir.rglob("*"))
-    files = [f for f in files if f.is_file()]
+    files = [f for f in local_dir.rglob("*") if f.is_file()]
     if not files:
         print(f"  [skip] {local_dir} is empty")
         return 0
 
-    count = 0
-    for f in files:
-        key = prefix + str(f.relative_to(local_dir)).replace("\\", "/")
-        print(f"  {f} -> s3://{bucket}/{key}")
-        s3.upload_file(
-            str(f), bucket, key,
-            ExtraArgs={"ContentType": "text/plain"},
-        )
-        count += 1
-    return count
+    total = len(files)
+    print(f"  {total} files, uploading with {MAX_WORKERS} workers...")
+
+    done = 0
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as pool:
+        futures = {
+            pool.submit(
+                _upload_one, s3, bucket, f,
+                prefix + str(f.relative_to(local_dir)).replace("\\", "/"),
+            ): f
+            for f in files
+        }
+        for fut in as_completed(futures):
+            fut.result()  # surface exceptions
+            done += 1
+            if done % 50 == 0 or done == total:
+                print(f"    {done}/{total}")
+    return done
 
 
 def main():
@@ -48,8 +76,10 @@ def main():
     parser.add_argument("--profile", help="AWS CLI profile name (optional)")
     args = parser.parse_args()
 
+    # Bump the connection pool so concurrent uploads don't serialize on it.
+    client_config = Config(max_pool_connections=MAX_WORKERS * 2)
     session = boto3.Session(profile_name=args.profile) if args.profile else boto3.Session()
-    s3 = session.client("s3")
+    s3 = session.client("s3", config=client_config)
 
     total = 0
     for local_path_str, prefix in UPLOAD_DIRS:
