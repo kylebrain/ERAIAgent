@@ -113,6 +113,9 @@ const conv = {
   rafHandle: 0,
   // Per-recording state so we can decide what to do on the async 'stop' event.
   recordingMode: null, // "finalize" | "abort"
+  // Set by stopConversation() when it wants the in-flight utterance flushed
+  // before teardown. Consumed at the tail of finalizeUtterance().
+  pendingStop: false,
 };
 
 function getAudioCtx() {
@@ -183,13 +186,13 @@ function stopRecorder(mode) {
 async function finalizeUtterance(blob) {
   // Skip blobs that are obviously silence/background noise.
   if (blob.size < VAD.minUtteranceBytes) {
-    armRecorder();
+    afterFinalize();
     return;
   }
   const endpoint = settings.apiEndpoint();
   if (!endpoint || endpoint === "REPLACE_WITH_API_GATEWAY_URL") {
     console.warn("/transcribe: API endpoint not configured");
-    armRecorder();
+    afterFinalize();
     return;
   }
 
@@ -212,10 +215,26 @@ async function finalizeUtterance(blob) {
   } catch (err) {
     console.warn("/transcribe failed:", err);
   } finally {
-    // Always restart listening for the next utterance unless we've been told
-    // to stop or pause.
+    afterFinalize();
+  }
+}
+
+function afterFinalize() {
+  // If stopConversation() is waiting for an in-flight finalize, complete the
+  // teardown now. Otherwise rearm for the next utterance.
+  if (conv.pendingStop) {
+    completeStop();
+  } else {
     armRecorder();
   }
+}
+
+function completeStop() {
+  conv.pendingStop = false;
+  const cb = conv.callbacks;
+  conv.callbacks = null;
+  teardown();
+  if (cb && cb.onStop) cb.onStop();
 }
 
 function vadLoop() {
@@ -314,10 +333,19 @@ export function stopConversation() {
   if (!conv.active) return;
   conv.active = false;
   conv.suppressed = false;
-  const cb = conv.callbacks;
-  conv.callbacks = null;
-  teardown();
-  if (cb && cb.onStop) cb.onStop();
+  if (conv.rafHandle) cancelAnimationFrame(conv.rafHandle);
+  conv.rafHandle = 0;
+  conv.speaking = false;
+
+  // If audio is being recorded, flush it through /transcribe before tearing
+  // down — gives the user the last thing they were saying when they hit the
+  // mic button. completeStop() runs from finalizeUtterance()'s finally.
+  if (conv.recorder && conv.recorder.state !== "inactive") {
+    conv.pendingStop = true;
+    stopRecorder("finalize");
+    return;
+  }
+  completeStop();
 }
 
 export function suppressForTTS() {
