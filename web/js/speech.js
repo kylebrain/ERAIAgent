@@ -155,11 +155,13 @@ function buildRecorder() {
     if (mode === "finalize") {
       const blob = new Blob(chunks, { type: rec.mimeType || mime || "audio/webm" });
       finalizeUtterance(blob);
+      return;
     }
-    // Always rearm if the conversation is still live; finalizeUtterance() will
-    // start the next recorder as soon as it fires (async), and the VAD loop
-    // keeps running off the analyser independently of the recorder.
-    if (conv.active && !conv.suppressed && mode !== "finalize") {
+    // abort path: if stopConversation is waiting on us, finish the teardown;
+    // otherwise rearm for the next utterance.
+    if (conv.pendingStop) {
+      completeStop();
+    } else if (conv.active && !conv.suppressed) {
       armRecorder();
     }
   });
@@ -335,16 +337,18 @@ export function stopConversation() {
   conv.suppressed = false;
   if (conv.rafHandle) cancelAnimationFrame(conv.rafHandle);
   conv.rafHandle = 0;
-  conv.speaking = false;
 
-  // If audio is being recorded, flush it through /transcribe before tearing
-  // down — gives the user the last thing they were saying when they hit the
-  // mic button. completeStop() runs from finalizeUtterance()'s finally.
+  // If audio is being recorded, decide whether to flush it through /transcribe
+  // before teardown. Only flush when VAD thinks the user is mid-utterance —
+  // toggling off during silence should not bill Whisper for an empty buffer.
   if (conv.recorder && conv.recorder.state !== "inactive") {
     conv.pendingStop = true;
-    stopRecorder("finalize");
+    const mode = conv.speaking ? "finalize" : "abort";
+    conv.speaking = false;
+    stopRecorder(mode);
     return;
   }
+  conv.speaking = false;
   completeStop();
 }
 
