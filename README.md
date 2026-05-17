@@ -238,15 +238,17 @@ aws cloudformation deploy \
 
 The UI ships with two voice features:
 
-- **Speech-to-text** via **OpenAI Whisper** through the `/transcribe` endpoint.
+- **Speech-to-text** via **AssemblyAI** through the `/transcribe` endpoint.
   Click the mic button (or use the configurable global keybind under gear →
   "Mic keybind") to enter conversation mode. The browser records via
   `MediaRecorder` and detects utterance boundaries with a Web Audio RMS-based
-  VAD (~700ms of silence cuts the chunk). Each utterance is POSTed to
-  `/transcribe`, which calls Whisper biased with a lexicon-derived prompt of
-  Elden Ring proper nouns (see Phase 5b) — so "Radahn", "Caelid", "Mohgwyn"
-  transcribe correctly instead of as English near-matches. Works in any browser
-  with `getUserMedia` + `MediaRecorder` (Chromium/Firefox/Safari) over HTTPS.
+  VAD (~1000ms of silence cuts the chunk; toggling the mic off also flushes).
+  Each utterance is POSTed to `/transcribe`, which calls AssemblyAI biased
+  with up to 1000 Elden Ring proper nouns via `keyterms_prompt` (see Phase
+  5b), then runs the transcript through a Double-Metaphone post-correction
+  pass against the full lexicon — so "Radahn", "Caelid", "Mohgwyn" transcribe
+  correctly instead of as English near-matches. Works in any browser with
+  `getUserMedia` + `MediaRecorder` (Chromium/Firefox/Safari) over HTTPS.
 
 - **Text-to-speech** via the `/speak` endpoint, which calls **Amazon Polly**
   (Neural engine; default voice **Stephen**, others selectable in the gear
@@ -277,7 +279,7 @@ python scripts/generate_pronunciations.py
 # (optional) edit infra/lexicons/overrides.json to fix anything that sounds wrong
 python scripts/build_lexicon.py
 python scripts/upload_lexicon.py
-python scripts/build_stt_prompt.py   # rebuild Whisper STT prompt from the lexicon
+python scripts/build_stt_prompt.py   # rebuild AssemblyAI keyterms + corrector lexicon
 ```
 
 `build_lexicon.py` prints a `LEXICON_NAMES` value (e.g. `eldenring` or
@@ -286,10 +288,12 @@ python scripts/build_stt_prompt.py   # rebuild Whisper STT prompt from the lexic
 `infra/template.yaml`, then redeploy. (Polly lexicon names must match
 `[0-9A-Za-z]{1,20}`, so no underscores or dashes.)
 
-`build_stt_prompt.py` writes `lambda/speech_handler/stt_prompt.txt`, which the
-speech Lambda bakes into every Whisper call to bias proper-noun transcription.
-Re-run it whenever the lexicon or overrides change, then redeploy so the new
-prompt ships with the Lambda.
+`build_stt_prompt.py` writes two files into `lambda/speech_handler/`:
+`stt_keyterms.json` (up to 1000 terms passed as AssemblyAI's `keyterms_prompt`
+to bias the model at recognition time) and `lexicon_data.json` (the full
+term→IPA map used by `ipa_corrector.py` as a phonetic post-correction safety
+net). Re-run it whenever the lexicon or overrides change, then redeploy so
+the updated files ship with the Lambda.
 
 **Fixing a mispronunciation.** If Polly says "mawg" instead of "moag" for Mohg,
 add `{"Mohg": "moʊɡ"}` to `infra/lexicons/overrides.json`, re-run
@@ -299,28 +303,28 @@ LLM-generated map.
 The Anthropic API key is billed by Anthropic directly and is **not** affected
 by Bedrock quotas.
 
-### Phase 5c — OpenAI API key for Whisper STT (one-time)
+### Phase 5c — AssemblyAI API key for STT (one-time)
 
-The `/transcribe` endpoint calls OpenAI Whisper, so the speech Lambda needs an
-OpenAI API key. Store it as an encrypted SSM Parameter (the Lambda reads it on
-cold start with `ssm:GetParameter`):
+The `/transcribe` endpoint calls AssemblyAI, so the speech Lambda needs an
+AssemblyAI API key. Store it as an encrypted SSM Parameter (the Lambda reads
+it on cold start with `ssm:GetParameter`):
 
 ```bash
 aws ssm put-parameter \
-  --name "/elden-ring/openai-api-key" \
+  --name "/elden-ring/assemblyai-api-key" \
   --type SecureString \
-  --value "sk-..." \
+  --value "..." \
   --overwrite
 ```
 
 The parameter name is hard-coded in `infra/template.yaml`
-(`SpeechHandlerFunction.Environment.Variables.OPENAI_API_KEY_PARAM` and the
-matching IAM resource ARN). If you ever change the name, update both.
+(`SpeechHandlerFunction.Environment.Variables.ASSEMBLYAI_API_KEY_PARAM` and
+the matching IAM resource ARN). If you ever change the name, update both.
 
-OpenAI Whisper pricing is **$0.006 / minute** of audio, billed by OpenAI
-directly — independent of AWS spend. At typical conversational pace
-(~150 utterances/hr × 3 s each = 7.5 min/hr) that's roughly $0.05/hr of mic
-time.
+AssemblyAI Universal pricing is roughly **$0.0043 / minute** of audio (with
+the `keyterms_prompt` surcharge included), billed by AssemblyAI directly —
+independent of AWS spend. At typical conversational pace (~150 utterances/hr
+× 3 s each = 7.5 min/hr) that's about $0.03/hr of mic time.
 
 ---
 

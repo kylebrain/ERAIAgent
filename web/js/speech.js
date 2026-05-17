@@ -90,7 +90,7 @@ const VAD = {
   speechStart: 0.025,
   speechEnd: 0.015,
   // Hysteresis windows.
-  silenceMsToFinalize: 700,
+  silenceMsToFinalize: 1000,
   minUtteranceMs: 250,
   // Cap so a single utterance can't grow without bound.
   maxUtteranceMs: 15000,

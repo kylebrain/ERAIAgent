@@ -106,7 +106,7 @@ Resources:
                 Resource: "*"
               - Effect: Allow
                 Action: ssm:GetParameter
-                Resource: !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/elden-ring/openai-api-key
+                Resource: !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/elden-ring/assemblyai-api-key
 
   # ── Lambda: monthly Fan API fetcher ──────────────────────────────────────
   FanApiFetcherFunction:
@@ -169,7 +169,7 @@ Resources:
       Environment:
         Variables:
           LEXICON_NAMES: "eldenring"
-          OPENAI_API_KEY_PARAM: "/elden-ring/openai-api-key"
+          ASSEMBLYAI_API_KEY_PARAM: "/elden-ring/assemblyai-api-key"
       Events:
         SpeakPost:
           Type: Api

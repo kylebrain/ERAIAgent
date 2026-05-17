@@ -1,0 +1,4 @@
+# boto3 is pre-installed in the Lambda Python runtime.
+# metaphone: pure-Python Double Metaphone for phonetic post-correction of
+# STT transcripts against the bundled Elden Ring lexicon. ~20KB.
+metaphone>=0.6
