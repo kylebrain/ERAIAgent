@@ -1,0 +1,3308 @@
+{
+  "&": {
+    "ipa": "ænd"
+  },
+  "1": {
+    "ipa": "wʌn"
+  },
+  "2": {
+    "ipa": "tuː"
+  },
+  "3": {
+    "ipa": "θriː"
+  },
+  "4": {
+    "ipa": "fɔːr"
+  },
+  "5": {
+    "ipa": "faɪv"
+  },
+  "6": {
+    "ipa": "sɪks"
+  },
+  "7": {
+    "ipa": "sɛvən"
+  },
+  "8": {
+    "ipa": "eɪt"
+  },
+  "9": {
+    "ipa": "naɪn"
+  },
+  "Abandoned": {
+    "ipa": "əˈbændənd"
+  },
+  "About": {
+    "ipa": "əˈbaʊt"
+  },
+  "Academy": {
+    "ipa": "əˈkædəmi"
+  },
+  "Adan": {
+    "ipa": "ˈɑːdən"
+  },
+  "Adula": {
+    "ipa": "əˈduːlə"
+  },
+  "Adula's": {
+    "ipa": "əˈduːləz"
+  },
+  "Aeonia": {
+    "ipa": "eɪˈoʊniə"
+  },
+  "Aeonian": {
+    "ipa": "iːˈoʊniən"
+  },
+  "Agheel": {
+    "ipa": "əɡˈhiːl"
+  },
+  "Agheel's": {
+    "ipa": "ˈæɡiːlz"
+  },
+  "Ainsel": {
+    "ipa": "ˈeɪnsəl"
+  },
+  "akakami": {
+    "ipa": "ˌɑːkəˈkɑːmi"
+  },
+  "Alberich": {
+    "ipa": "ˈælbərɪk"
+  },
+  "Alberich's": {
+    "ipa": "ˈælbərɪks"
+  },
+  "Albinauric": {
+    "ipa": "ælbɪˈnɔːrɪk"
+  },
+  "Albinauric's": {
+    "ipa": "ælbɪˈnɔːrɪks"
+  },
+  "Albinaurics": {
+    "ipa": "ælbɪˈnɔːrɪks"
+  },
+  "Alecto": {
+    "ipa": "əˈlɛktoʊ"
+  },
+  "All-Knowing": {
+    "ipa": "ˌɔːlˈnoʊɪŋ"
+  },
+  "Allies": {
+    "ipa": "ˈælaɪz"
+  },
+  "Altar": {
+    "ipa": "ˈɔːltər"
+  },
+  "Altered": {
+    "ipa": "ˈɔːltərd"
+  },
+  "Altus": {
+    "ipa": "ˈæltəs"
+  },
+  "Amber": {
+    "ipa": "ˈæmbər"
+  },
+  "Amnion": {
+    "ipa": "ˈæmniən"
+  },
+  "Amon": {
+    "ipa": "ˈeɪmən"
+  },
+  "Ancient": {
+    "ipa": "ˈeɪnʃənt"
+  },
+  "and": {
+    "ipa": "ænd"
+  },
+  "Andreas": {
+    "ipa": "ænˈdreɪəs"
+  },
+  "Anix": {
+    "ipa": "ˈænɪks"
+  },
+  "Anna": {
+    "ipa": "ˈænə"
+  },
+  "Ansbach": {
+    "ipa": "ˈɑːnzˌbɑːx"
+  },
+  "Ansbach's": {
+    "ipa": "ˈænzbɑːks"
+  },
+  "Antspur": {
+    "ipa": "ˈæntspɜːr"
+  },
+  "Apostle": {
+    "ipa": "əˈpɑːsəl"
+  },
+  "Aqueduct": {
+    "ipa": "ˈækwɪdʌkt"
+  },
+  "Arc": {
+    "ipa": "ɑːrk"
+  },
+  "Archer": {
+    "ipa": "ˈɑːrtʃər"
+  },
+  "Arghanthy": {
+    "ipa": "ɑrˈɡænθi"
+  },
+  "Armor": {
+    "ipa": "ˈɑːrmər"
+  },
+  "Aromatic": {
+    "ipa": "ˌɛrəˈmætɪk"
+  },
+  "Arrow": {
+    "ipa": "ˈæroʊ"
+  },
+  "Arteria": {
+    "ipa": "ɑːrˈtɪəriə"
+  },
+  "Artist's": {
+    "ipa": "ˈɑːrtɪsts"
+  },
+  "Ash": {
+    "ipa": "ˈæʃ"
+  },
+  "Ashen": {
+    "ipa": "ˈæʃən"
+  },
+  "Ashes": {
+    "ipa": "ˈæʃɪz"
+  },
+  "Asimi": {
+    "ipa": "əˈsiːmiː"
+  },
+  "Asimi's": {
+    "ipa": "əˈsiːmiːz"
+  },
+  "Assassin's": {
+    "ipa": "əˈsæsɪnz"
+  },
+  "Assault": {
+    "ipa": "əˈsɔːlt"
+  },
+  "Astel": {
+    "ipa": "ˈæstɛl"
+  },
+  "at": {
+    "ipa": "æt"
+  },
+  "Attire": {
+    "ipa": "əˈtaɪər"
+  },
+  "Aureliette": {
+    "ipa": "ɔːrɛliˈɛt"
+  },
+  "Auriza": {
+    "ipa": "ɔːˈriːzə"
+  },
+  "Avatar": {
+    "ipa": "ˈævətɑːr"
+  },
+  "Avionette": {
+    "ipa": "ˌæviəˈnɛt"
+  },
+  "Axe": {
+    "ipa": "ˈæks"
+  },
+  "Azula": {
+    "ipa": "ˈæzulə"
+  },
+  "Azur": {
+    "ipa": "ɑˈzɜr"
+  },
+  "Azur's": {
+    "ipa": "əˈzʊrz"
+  },
+  "Bairn": {
+    "ipa": "ˈbɛrn"
+  },
+  "Baldachin's": {
+    "ipa": "ˈbɑːldəkɪnz"
+  },
+  "Bandit": {
+    "ipa": "ˈbændɪt"
+  },
+  "Banished": {
+    "ipa": "ˈbænɪʃt"
+  },
+  "Baptismal": {
+    "ipa": "bəpˈtɪzməl"
+  },
+  "Barrier": {
+    "ipa": "ˈbæriər"
+  },
+  "Base": {
+    "ipa": "beɪs"
+  },
+  "Bastard's": {
+    "ipa": "ˈbæstərdz"
+  },
+  "Battlemage": {
+    "ipa": "ˈbætəlmeɪdʒ"
+  },
+  "Bayle": {
+    "ipa": "beɪl"
+  },
+  "Bayle's": {
+    "ipa": "beɪlz"
+  },
+  "Bear": {
+    "ipa": "bɛr"
+  },
+  "Bearing": {
+    "ipa": "ˈbɛrɪŋ"
+  },
+  "Beast": {
+    "ipa": "ˈbist"
+  },
+  "Beastman": {
+    "ipa": "ˈbistmən"
+  },
+  "Bell": {
+    "ipa": "ˈbɛl"
+  },
+  "Bellum": {
+    "ipa": "ˈbɛləm"
+  },
+  "Belurat": {
+    "ipa": "bɛluːˈrɑːt"
+  },
+  "Bernahl": {
+    "ipa": "ˈbɜːrnɑːl"
+  },
+  "Bernahl's": {
+    "ipa": "bɛrˈnɑːlz"
+  },
+  "Between": {
+    "ipa": "bɪˈtwiːn"
+  },
+  "Between-": {
+    "ipa": "bɪˈtwiːn"
+  },
+  "Bewitching": {
+    "ipa": "bɪˈwɪtʃɪŋ"
+  },
+  "Big": {
+    "ipa": "ˈbɪɡ"
+  },
+  "Bird": {
+    "ipa": "bɜːrd"
+  },
+  "Black": {
+    "ipa": "blæk"
+  },
+  "Blackflame": {
+    "ipa": "ˈblækfleɪm"
+  },
+  "Blackgaol": {
+    "ipa": "ˈblækɡeɪl"
+  },
+  "Blackguard": {
+    "ipa": "ˈblækɡɑːrd"
+  },
+  "Blackguard's": {
+    "ipa": "ˈblækɡɑːrdz"
+  },
+  "Blackquill": {
+    "ipa": "ˈblækwɪl"
+  },
+  "Blade": {
+    "ipa": "bleɪd"
+  },
+  "Blades": {
+    "ipa": "ˈbleɪdz"
+  },
+  "Blaidd": {
+    "ipa": "ˈblaɪð"
+  },
+  "Blaidd's": {
+    "ipa": "ˈblaɪðz"
+  },
+  "Blasphemy": {
+    "ipa": "ˈblæsfəmi"
+  },
+  "Blessing": {
+    "ipa": "ˈblɛsɪŋ"
+  },
+  "Blighted": {
+    "ipa": "ˈblaɪtəd"
+  },
+  "Blinkbolt": {
+    "ipa": "ˈblɪŋkboʊlt"
+  },
+  "Blood": {
+    "ipa": "blʌd"
+  },
+  "Bloodclot": {
+    "ipa": "ˈblʌdklɒt"
+  },
+  "Bloodhound": {
+    "ipa": "ˈblʌdhaʊnd"
+  },
+  "Bloodsoaked": {
+    "ipa": "ˈblʌdsoʊkt"
+  },
+  "Bloody": {
+    "ipa": "ˈblʌdi"
+  },
+  "Bloom": {
+    "ipa": "bluːm"
+  },
+  "Blossom": {
+    "ipa": "ˈblɑːsəm"
+  },
+  "Boc": {
+    "ipa": "ˈbɒk"
+  },
+  "Boggart": {
+    "ipa": "ˈbɑːɡərt"
+  },
+  "Boilprawn": {
+    "ipa": "ˈbɔɪlprɔːn"
+  },
+  "Bols": {
+    "ipa": "ˈboʊlz"
+  },
+  "Bolt": {
+    "ipa": "ˈboʊlt"
+  },
+  "Boltdrake": {
+    "ipa": "ˈboʊltdreɪk"
+  },
+  "Bonny": {
+    "ipa": "ˈbɒni"
+  },
+  "Boots": {
+    "ipa": "buːts"
+  },
+  "Borealis": {
+    "ipa": "bɔːriˈælɪs"
+  },
+  "Borealis's": {
+    "ipa": "bɔːriˈælɪzɪz"
+  },
+  "Boss": {
+    "ipa": "bɔːs"
+  },
+  "Bouquet": {
+    "ipa": "boʊˈkeɪ"
+  },
+  "Bow": {
+    "ipa": "baʊ"
+  },
+  "Brace": {
+    "ipa": "breɪs"
+  },
+  "Bracelets": {
+    "ipa": "ˈbreɪsləts"
+  },
+  "Bracers": {
+    "ipa": "ˈbreɪsərz"
+  },
+  "Branch": {
+    "ipa": "ˈbræntʃ"
+  },
+  "Breath": {
+    "ipa": "brɛθ"
+  },
+  "Briar": {
+    "ipa": "ˈbraɪər"
+  },
+  "Brother": {
+    "ipa": "ˈbrʌðər"
+  },
+  "Bubbletear": {
+    "ipa": "ˈbʌbəlˌtɪr"
+  },
+  "Bud": {
+    "ipa": "ˈbʌd"
+  },
+  "Burgeon": {
+    "ipa": "ˈbɜːrdʒən"
+  },
+  "Burial": {
+    "ipa": "ˈbɛriəl"
+  },
+  "Burn": {
+    "ipa": "ˈbɜːrn"
+  },
+  "Burrow": {
+    "ipa": "ˈbɑːroʊ"
+  },
+  "Butterfly": {
+    "ipa": "ˈbʌtərflaɪ"
+  },
+  "Caelem": {
+    "ipa": "ˈkeɪləm"
+  },
+  "Caelid": {
+    "ipa": "ˈkeɪlɪd"
+  },
+  "Caestus": {
+    "ipa": "ˈkeɪstəs"
+  },
+  "Call": {
+    "ipa": "ˈkɔːl"
+  },
+  "Callu": {
+    "ipa": "ˈkæluː"
+  },
+  "Calorbloom": {
+    "ipa": "ˈkælərbluːm"
+  },
+  "Cameo": {
+    "ipa": "ˈkæmioʊ"
+  },
+  "Cannon": {
+    "ipa": "ˈkænən"
+  },
+  "Capital": {
+    "ipa": "ˈkæpɪtəl"
+  },
+  "Captain": {
+    "ipa": "ˈkæptən"
+  },
+  "Caria": {
+    "ipa": "ˈkɛriə"
+  },
+  "Carian": {
+    "ipa": "ˈkɛəriən"
+  },
+  "Carmaan": {
+    "ipa": "kɑːrˈmɑːn"
+  },
+  "Castellan": {
+    "ipa": "kæsˈtɛlən"
+  },
+  "Castle": {
+    "ipa": "ˈkæsəl"
+  },
+  "Catacombs": {
+    "ipa": "ˈkætəkoʊmz"
+  },
+  "Cathedral": {
+    "ipa": "kəˈθiːdrəl"
+  },
+  "Cave": {
+    "ipa": "keɪv"
+  },
+  "Celes": {
+    "ipa": "ˈseɪliːz"
+  },
+  "Cerulean": {
+    "ipa": "səˈruːliən"
+  },
+  "Chalice": {
+    "ipa": "ˈtʃælɪs"
+  },
+  "champions": {
+    "ipa": "ˈtʃæmpjənz"
+  },
+  "Charge": {
+    "ipa": "ˈtʃɑːrdʒ"
+  },
+  "Charo's": {
+    "ipa": "ˈtʃɑroʊz"
+  },
+  "Checklist": {
+    "ipa": "ˈtʃɛklist"
+  },
+  "Chelona's": {
+    "ipa": "kəˈloʊnəz"
+  },
+  "Chief": {
+    "ipa": "ˈtʃiːf"
+  },
+  "Chrysalids": {
+    "ipa": "ˈkrɪsəlɪdz"
+  },
+  "Church": {
+    "ipa": "tʃɜːrtʃ"
+  },
+  "Cinquedea": {
+    "ipa": "tʃɪŋkweɪˈdeɪə"
+  },
+  "Cipher": {
+    "ipa": "ˈsaɪfər"
+  },
+  "Cirque": {
+    "ipa": "ˈsɜːrk"
+  },
+  "City": {
+    "ipa": "ˈsɪti"
+  },
+  "Claw": {
+    "ipa": "klɔː"
+  },
+  "Cleanrot": {
+    "ipa": "ˈkliːnrɑt"
+  },
+  "Clergyman": {
+    "ipa": "ˈklɜːrdʒimən"
+  },
+  "Cloth": {
+    "ipa": "klɔːθ"
+  },
+  "Coast": {
+    "ipa": "ˈkoʊst"
+  },
+  "Codex": {
+    "ipa": "ˈkoʊdɛks"
+  },
+  "Colossal": {
+    "ipa": "kəˈlɑsəl"
+  },
+  "Colosseum": {
+    "ipa": "kəˈlɒsiəm"
+  },
+  "Comet": {
+    "ipa": "ˈkɑmɪt"
+  },
+  "Cometshard": {
+    "ipa": "ˈkɑːmɪtˌʃɑːrd"
+  },
+  "Commander": {
+    "ipa": "kəˈmændər"
+  },
+  "Communion": {
+    "ipa": "kəˈmjuːnjən"
+  },
+  "Comparison": {
+    "ipa": "kəmˈpærɪsən"
+  },
+  "Concoction": {
+    "ipa": "kənˈkɑːkʃən"
+  },
+  "Confession": {
+    "ipa": "kənˈfɛʃən"
+  },
+  "Confessor": {
+    "ipa": "kənˈfɛsər"
+  },
+  "Consecrated": {
+    "ipa": "ˈkɑːnsɪkreɪtɪd"
+  },
+  "Consort": {
+    "ipa": "ˈkɑːnsɔːrt"
+  },
+  "Contender's": {
+    "ipa": "kənˈtɛndərz"
+  },
+  "Cookbook": {
+    "ipa": "ˈkʊkbʊk"
+  },
+  "Corhyn": {
+    "ipa": "ˈkɔːrhɪn"
+  },
+  "Corhyn's": {
+    "ipa": "ˈkɔrɪnz"
+  },
+  "Counselor": {
+    "ipa": "ˈkaʊnsələr"
+  },
+  "Count": {
+    "ipa": "ˈkaʊnt"
+  },
+  "Cracked": {
+    "ipa": "krækt"
+  },
+  "Craftsman's": {
+    "ipa": "ˈkræftsmənz"
+  },
+  "Cragblade": {
+    "ipa": "ˈkræɡbleɪd"
+  },
+  "Crepus": {
+    "ipa": "ˈkrɛpəs"
+  },
+  "Crepus's": {
+    "ipa": "ˈkrɛpəsɪz"
+  },
+  "Crest": {
+    "ipa": "ˈkrɛst"
+  },
+  "Crimson": {
+    "ipa": "ˈkrɪmzən"
+  },
+  "Crimsonburst": {
+    "ipa": "ˈkrɪmzənbɜːrst"
+  },
+  "Crimsonspill": {
+    "ipa": "ˈkrɪmzənspɪl"
+  },
+  "Crimsonwhorl": {
+    "ipa": "ˈkrɪmzənwɜːrl"
+  },
+  "Cross": {
+    "ipa": "krɔːs"
+  },
+  "Crown": {
+    "ipa": "ˈkraʊn"
+  },
+  "Crucible": {
+    "ipa": "ˈkruːsəbəl"
+  },
+  "Crumbling": {
+    "ipa": "ˈkrʌmblɪŋ"
+  },
+  "Crystal": {
+    "ipa": "ˈkrɪstəl"
+  },
+  "Crystalian": {
+    "ipa": "krɪˈsteɪliən"
+  },
+  "Crystalians": {
+    "ipa": "krɪˈsteɪliənz"
+  },
+  "Cuckoo": {
+    "ipa": "ˈkʊkuː"
+  },
+  "Cuckoo's": {
+    "ipa": "ˈkʊkuːz"
+  },
+  "Cuissardes": {
+    "ipa": "kwɪˈsɑːrdz"
+  },
+  "Curseblade": {
+    "ipa": "ˈkɜːrsbleɪd"
+  },
+  "Curseblade's": {
+    "ipa": "ˈkɜːrsbleɪdz"
+  },
+  "Cursed": {
+    "ipa": "ˈkɜːrsɪd"
+  },
+  "Curved": {
+    "ipa": "ˈkɜːrvd"
+  },
+  "Daedicar's": {
+    "ipa": "ˈdeɪdɪkɑːrz"
+  },
+  "Dagger": {
+    "ipa": "ˈdæɡər"
+  },
+  "Dancer": {
+    "ipa": "ˈdænsər"
+  },
+  "Dancing": {
+    "ipa": "ˈdænsɪŋ"
+  },
+  "Dane's": {
+    "ipa": "deɪnz"
+  },
+  "Dark": {
+    "ipa": "dɑːrk"
+  },
+  "Darklight": {
+    "ipa": "ˈdɑːrklɪt"
+  },
+  "Darkness": {
+    "ipa": "ˈdɑːrknəs"
+  },
+  "Darriwil": {
+    "ipa": "ˈdɑːrɪwɪl"
+  },
+  "Dart": {
+    "ipa": "dɑːrt"
+  },
+  "Decay": {
+    "ipa": "dɪˈkeɪ"
+  },
+  "Decaying": {
+    "ipa": "dɪˈkeɪɪŋ"
+  },
+  "Dectus": {
+    "ipa": "ˈdɛktəs"
+  },
+  "Deenh": {
+    "ipa": "ˈdiːn"
+  },
+  "Deep": {
+    "ipa": "ˈdiːp"
+  },
+  "deeper": {
+    "ipa": "ˈdiːpər"
+  },
+  "Demi-Human": {
+    "ipa": "ˈdɛmiːˌhjuːmən"
+  },
+  "Depraved": {
+    "ipa": "dɪˈpreɪvd"
+  },
+  "Devonia": {
+    "ipa": "dɛˈvoʊniə"
+  },
+  "Devonia's": {
+    "ipa": "dɛˈvoʊniəz"
+  },
+  "Dheo": {
+    "ipa": "ˈðiːoʊ"
+  },
+  "Diallos": {
+    "ipa": "diːˈæloʊs"
+  },
+  "Diallos's": {
+    "ipa": "diːˈæloʊsɪz"
+  },
+  "Dialogue": {
+    "ipa": "ˈdaɪəlɑːɡ"
+  },
+  "Disciple": {
+    "ipa": "ˈdɪsɪpəl"
+  },
+  "Disciple's": {
+    "ipa": "ˈdɪsaɪpəlz"
+  },
+  "Divine": {
+    "ipa": "dɪˈvaɪn"
+  },
+  "Draconic": {
+    "ipa": "drəˈkɑːnɪk"
+  },
+  "Dragon": {
+    "ipa": "ˈdræɡən"
+  },
+  "Dragon's": {
+    "ipa": "ˈdræɡənz"
+  },
+  "Dragonbarrow": {
+    "ipa": "ˈdræɡənˌbæroʊ"
+  },
+  "Dragonbolt": {
+    "ipa": "ˈdræɡənboʊlt"
+  },
+  "Dragonkin": {
+    "ipa": "ˈdræɡənkɪn"
+  },
+  "Dragonlord": {
+    "ipa": "ˈdræɡənlɔːrd"
+  },
+  "Drake": {
+    "ipa": "ˈdreɪk"
+  },
+  "Drawstring": {
+    "ipa": "ˈdrɔːstrɪŋ"
+  },
+  "Dread": {
+    "ipa": "ˈdrɛd"
+  },
+  "Dried": {
+    "ipa": "ˈdraɪd"
+  },
+  "Dryleaf": {
+    "ipa": "ˈdraɪliːf"
+  },
+  "Dungeon": {
+    "ipa": "ˈdʌndʒən"
+  },
+  "Duo": {
+    "ipa": "ˈduːoʊ"
+  },
+  "Dynasty": {
+    "ipa": "ˈdɪnəsti"
+  },
+  "Earthshaker": {
+    "ipa": "ˈɜːrθʃeɪkər"
+  },
+  "East": {
+    "ipa": "iːst"
+  },
+  "Eccentric's": {
+    "ipa": "ɪkˈsɛntrɪks"
+  },
+  "Echoes": {
+    "ipa": "ˈɛkoʊz"
+  },
+  "Eclipse": {
+    "ipa": "ɪˈklɪps"
+  },
+  "Edredd": {
+    "ipa": "ˈɛdrɛd"
+  },
+  "Effigy": {
+    "ipa": "ˈɛfɪdʒi"
+  },
+  "Ekzykes": {
+    "ipa": "ˈɛkzɪkiːz"
+  },
+  "Ekzykes's": {
+    "ipa": "ˈɛkzɪkɪz"
+  },
+  "Elden": {
+    "ipa": "ˈɛldən"
+  },
+  "Elder": {
+    "ipa": "ˈɛldər"
+  },
+  "Elemer": {
+    "ipa": "ˈɛləmər"
+  },
+  "Eleonora": {
+    "ipa": "ɛliəˈnɔːrə"
+  },
+  "Eleonora's": {
+    "ipa": "ɛliəˈnɔːrəz"
+  },
+  "Ellac": {
+    "ipa": "ˈɛlæk"
+  },
+  "Elleh": {
+    "ipa": "ˈɛlə"
+  },
+  "Elphael": {
+    "ipa": "ˈɛlfaɪl"
+  },
+  "Ember": {
+    "ipa": "ˈɛmbər"
+  },
+  "Engvall": {
+    "ipa": "ˈɛŋvɑːl"
+  },
+  "Enia": {
+    "ipa": "ˈeɪniə"
+  },
+  "Ensha": {
+    "ipa": "ˈɛnʃə"
+  },
+  "Ensis": {
+    "ipa": "ˈɛnsɪs"
+  },
+  "Eochaid": {
+    "ipa": "ˈjoʊˌkɛd"
+  },
+  "Eochaid's": {
+    "ipa": "ˈjoʊkeɪd"
+  },
+  "Erdleaf": {
+    "ipa": "ˈɜːrdliːf"
+  },
+  "Erdsteel": {
+    "ipa": "ˈɜːrdstil"
+  },
+  "Erdtree": {
+    "ipa": "ˈɜːrdtriː"
+  },
+  "Erdtree's": {
+    "ipa": "ˈɜːrdtriːz"
+  },
+  "Errant": {
+    "ipa": "ˈɛrənt"
+  },
+  "Esgar": {
+    "ipa": "ˈɛzɡɑːr"
+  },
+  "Estoc": {
+    "ipa": "ɛˈstɑːk"
+  },
+  "Eternal": {
+    "ipa": "ɪˈtɜːrnəl"
+  },
+  "Euporia": {
+    "ipa": "juːˈpɔːriə"
+  },
+  "Evergaol": {
+    "ipa": "ˈɛvərɡoʊl"
+  },
+  "Executioner's": {
+    "ipa": "ɪɡˈzɛkjətənɚz"
+  },
+  "Explosive": {
+    "ipa": "ɪkˈsploʊsɪv"
+  },
+  "Eye": {
+    "ipa": "aɪ"
+  },
+  "Faded": {
+    "ipa": "ˈfeɪdɪd"
+  },
+  "Faith-knot": {
+    "ipa": "ˈfeɪθnɑːt"
+  },
+  "Fallingstar": {
+    "ipa": "ˈfɔːlɪŋstɑːr"
+  },
+  "Family": {
+    "ipa": "ˈfæməli"
+  },
+  "Faroth": {
+    "ipa": "ˈfɑːrɒθ"
+  },
+  "Farum": {
+    "ipa": "ˈfɑːrəm"
+  },
+  "Favor": {
+    "ipa": "ˈfeɪvər"
+  },
+  "Feather": {
+    "ipa": "ˈfɛðər"
+  },
+  "Fell": {
+    "ipa": "ˈfɛl"
+  },
+  "Festering": {
+    "ipa": "ˈfɛstərɪŋ"
+  },
+  "Fevor's": {
+    "ipa": "ˈfɛvərz"
+  },
+  "Fia": {
+    "ipa": "ˈfiːə"
+  },
+  "Fia's": {
+    "ipa": "ˈfiːəz"
+  },
+  "Filigreed": {
+    "ipa": "ˈfɪlɪɡriːd"
+  },
+  "Fine": {
+    "ipa": "faɪn"
+  },
+  "Finger": {
+    "ipa": "ˈfɪŋɡər"
+  },
+  "Fingercreeper": {
+    "ipa": "ˈfɪŋɡərˌkripər"
+  },
+  "Fingerprint": {
+    "ipa": "ˈfɪŋɡərprɪnt"
+  },
+  "Fingers": {
+    "ipa": "ˈfɪŋɡərz"
+  },
+  "Finlay": {
+    "ipa": "ˈfɪnleɪ"
+  },
+  "Fire": {
+    "ipa": "ˈfaɪər"
+  },
+  "Firefly": {
+    "ipa": "ˈfaɪərˌflaɪ"
+  },
+  "First": {
+    "ipa": "ˈfɜːrst"
+  },
+  "Flamberge": {
+    "ipa": "flɑːmˈbɛrʒ"
+  },
+  "Flame": {
+    "ipa": "fleɪm"
+  },
+  "Flamedrake": {
+    "ipa": "ˈfleɪmˌdreɪk"
+  },
+  "Flask": {
+    "ipa": "flæsk"
+  },
+  "Fletched": {
+    "ipa": "flɛtʃt"
+  },
+  "Floh": {
+    "ipa": "ˈfloʊ"
+  },
+  "Florissax": {
+    "ipa": "flɔːˈrɪsæks"
+  },
+  "Flower": {
+    "ipa": "ˈflaʊər"
+  },
+  "Flowerstone": {
+    "ipa": "ˈflaʊərstoʊn"
+  },
+  "Flowing": {
+    "ipa": "ˈfloʊɪŋ"
+  },
+  "Flying": {
+    "ipa": "ˈflaɪɪŋ"
+  },
+  "Fog": {
+    "ipa": "ˈfɒɡ"
+  },
+  "Foot": {
+    "ipa": "fʊt"
+  },
+  "Footwork": {
+    "ipa": "ˈfʊtˌwɜːrk"
+  },
+  "for": {
+    "ipa": "fɔːr"
+  },
+  "Forge": {
+    "ipa": "ˈfɔːrdʒ"
+  },
+  "Forlorn": {
+    "ipa": "fərˈlɔːrn"
+  },
+  "Form": {
+    "ipa": "fɔːrm"
+  },
+  "Fort": {
+    "ipa": "fɔːrt"
+  },
+  "Fortissax": {
+    "ipa": "fɔːrˈtɪsæks"
+  },
+  "Fortissax's": {
+    "ipa": "fɔːrˈtɪsæks"
+  },
+  "Fourth": {
+    "ipa": "ˈfɔːrθ"
+  },
+  "Fragment": {
+    "ipa": "ˈfræɡmənt"
+  },
+  "Freezing": {
+    "ipa": "ˈfriːzɪŋ"
+  },
+  "Frenzied": {
+    "ipa": "ˈfrɛnzid"
+  },
+  "Frenzy": {
+    "ipa": "ˈfrɛnzi"
+  },
+  "Freyja": {
+    "ipa": "ˈfreɪjə"
+  },
+  "Freyja's": {
+    "ipa": "ˈfreɪjəz"
+  },
+  "Fringefolk": {
+    "ipa": "ˈfrɪndʒfoʊk"
+  },
+  "from": {
+    "ipa": "frəm"
+  },
+  "Fruit": {
+    "ipa": "ˈfruːt"
+  },
+  "Fulgurbloom": {
+    "ipa": "ˈfʊlɡərˌbluːm"
+  },
+  "Full": {
+    "ipa": "ˈfʊl"
+  },
+  "Furious": {
+    "ipa": "ˈfjʊriəs"
+  },
+  "Furlcalling": {
+    "ipa": "ˈfɜːrlˌkɔːlɪŋ"
+  },
+  "Furled": {
+    "ipa": "ˈfɜːrld"
+  },
+  "Fury": {
+    "ipa": "ˈfjʊri"
+  },
+  "Gael": {
+    "ipa": "ɡeɪl"
+  },
+  "Gaius": {
+    "ipa": "ˈɡeɪəs"
+  },
+  "Gaius's": {
+    "ipa": "ˈɡeɪəsɪz"
+  },
+  "Gaol": {
+    "ipa": "ˈdʒeɪl"
+  },
+  "Garb": {
+    "ipa": "ɡɑːrb"
+  },
+  "Garrew": {
+    "ipa": "ˈɡærəʊ"
+  },
+  "Garris": {
+    "ipa": "ˈɡærɪs"
+  },
+  "Gatekeeper": {
+    "ipa": "ˈɡeɪtˌkipər"
+  },
+  "Gateway": {
+    "ipa": "ˈɡeɪtweɪ"
+  },
+  "Gauntlet": {
+    "ipa": "ˈɡɔːntlət"
+  },
+  "Gauntlets": {
+    "ipa": "ˈɡɔːntləts"
+  },
+  "Gavel": {
+    "ipa": "ˈɡævəl"
+  },
+  "Gelmir": {
+    "ipa": "ˈɡɛlmɪr"
+  },
+  "Gelmir's": {
+    "ipa": "ˈɡɛlmɪrz"
+  },
+  "General": {
+    "ipa": "ˈdʒɛnərəl"
+  },
+  "Ghiza": {
+    "ipa": "ɡɪˈzɑː"
+  },
+  "Ghiza's": {
+    "ipa": "ɡɪˈzɑːz"
+  },
+  "Ghost": {
+    "ipa": "ɡoʊst"
+  },
+  "Ghostflame": {
+    "ipa": "ˈɡoʊstfleɪm"
+  },
+  "Giant": {
+    "ipa": "ˈdʒaɪənt"
+  },
+  "Gideon": {
+    "ipa": "ɡɪˈdiːən"
+  },
+  "Gilika": {
+    "ipa": "ɡɪˈliːkə"
+  },
+  "Girandole": {
+    "ipa": "dʒɪˈrændoʊl"
+  },
+  "Glaive": {
+    "ipa": "ˈɡleɪv"
+  },
+  "Glintblade": {
+    "ipa": "ˈɡlɪntbleɪd"
+  },
+  "Glintslab": {
+    "ipa": "ˈɡlɪntˌslæb"
+  },
+  "Glintstone": {
+    "ipa": "ˈɡlɪntstoʊn"
+  },
+  "Gloves": {
+    "ipa": "ˈɡlʌvz"
+  },
+  "Glovewort": {
+    "ipa": "ˈɡlʌvˌwɜːrt"
+  },
+  "Gloveworts": {
+    "ipa": "ˈɡlʌvˌwɜːrts"
+  },
+  "Godefroy": {
+    "ipa": "ɡɑːdəfˈrɔɪ"
+  },
+  "Godfrey": {
+    "ipa": "ˈɡɑːdfri"
+  },
+  "Godrick": {
+    "ipa": "ˈɡɑːdrɪk"
+  },
+  "Godskin": {
+    "ipa": "ˈɡɑːdsˌskɪn"
+  },
+  "Godslayer": {
+    "ipa": "ˈɡɑːdˌsleɪər"
+  },
+  "Godslayer's": {
+    "ipa": "ˈɡɑːdˌsleɪərz"
+  },
+  "Godwyn": {
+    "ipa": "ˈɡɑːdwɪn"
+  },
+  "Golden": {
+    "ipa": "ˈɡoʊldən"
+  },
+  "Goldmask": {
+    "ipa": "ˈɡoʊldˌmæsk"
+  },
+  "Goldmask's": {
+    "ipa": "ˈɡoʊldˌmæsks"
+  },
+  "Golem": {
+    "ipa": "ˈɡoʊləm"
+  },
+  "Gostoc": {
+    "ipa": "ˈɡɑːstɑːk"
+  },
+  "Gostoc's": {
+    "ipa": "ɡɑːˈstɑːks"
+  },
+  "Gowry": {
+    "ipa": "ˈɡaʊri"
+  },
+  "Gowry's": {
+    "ipa": "ˈɡaʊri"
+  },
+  "Grafted": {
+    "ipa": "ˈɡræftɪd"
+  },
+  "Grand": {
+    "ipa": "ɡrænd"
+  },
+  "Grandam": {
+    "ipa": "ˈɡrændæm"
+  },
+  "Grandeur": {
+    "ipa": "ɡrænˈdɜːr"
+  },
+  "Gransax": {
+    "ipa": "ˈɡrænzæks"
+  },
+  "Grape": {
+    "ipa": "ɡreɪp"
+  },
+  "Grave": {
+    "ipa": "ˈɡreɪv"
+  },
+  "Gravebird's": {
+    "ipa": "ˈɡreɪvbɜːrd"
+  },
+  "Grease": {
+    "ipa": "ɡriːs"
+  },
+  "Great": {
+    "ipa": "ɡreɪt"
+  },
+  "Greatbolt": {
+    "ipa": "ˈɡreɪtˌboʊlt"
+  },
+  "Greatbow": {
+    "ipa": "ˈɡreɪtboʊ"
+  },
+  "Greatbridge": {
+    "ipa": "ˈɡreɪtbrɪdʒ"
+  },
+  "Greathammer": {
+    "ipa": "ˈɡreɪthæmər"
+  },
+  "Greatjar": {
+    "ipa": "ˈɡreɪtdʒɑːr"
+  },
+  "Greatshield": {
+    "ipa": "ˈɡreɪtʃiːld"
+  },
+  "Greatsword": {
+    "ipa": "ˈɡreɪtswɔːrd"
+  },
+  "Greaves": {
+    "ipa": "ˈɡriːvz"
+  },
+  "Greyll": {
+    "ipa": "ɡreɪl"
+  },
+  "Greyoll": {
+    "ipa": "ˈɡreɪoʊl"
+  },
+  "Greyoll's": {
+    "ipa": "ˈɡreɪoʊlz"
+  },
+  "Grossmesser": {
+    "ipa": "ˈɡroʊsˌmɛsər"
+  },
+  "Grounds": {
+    "ipa": "ɡraʊndz"
+  },
+  "Guardian": {
+    "ipa": "ˈɡɑrdiən"
+  },
+  "Guardian's": {
+    "ipa": "ˈɡɑːrdiənz"
+  },
+  "Gurranq": {
+    "ipa": "ɡuˈrɑːŋk"
+  },
+  "Gurranq's": {
+    "ipa": "ɡuˈrɑːŋks"
+  },
+  "Haight": {
+    "ipa": "ˈheɪt"
+  },
+  "Haima": {
+    "ipa": "ˈhaɪmə"
+  },
+  "Haligbone": {
+    "ipa": "ˈhælɪɡboʊn"
+  },
+  "Haligdrake": {
+    "ipa": "ˈhælɪɡdreɪk"
+  },
+  "Haligtree": {
+    "ipa": "ˈhæləɡtriː"
+  },
+  "Hall": {
+    "ipa": "hɔl"
+  },
+  "Hallowhorn": {
+    "ipa": "ˈhæloʊhɔːrn"
+  },
+  "Hammer": {
+    "ipa": "ˈhæmər"
+  },
+  "Hand": {
+    "ipa": "hænd"
+  },
+  "Hardtear": {
+    "ipa": "ˈhɑːrdtɪr"
+  },
+  "Harpoon": {
+    "ipa": "hɑːrˈpuːn"
+  },
+  "Hat": {
+    "ipa": "hæt"
+  },
+  "Hatchet": {
+    "ipa": "ˈhætʃət"
+  },
+  "Headless": {
+    "ipa": "ˈhɛdləs"
+  },
+  "Heal": {
+    "ipa": "hiːl"
+  },
+  "Heart": {
+    "ipa": "hɑːrt"
+  },
+  "Heirloom": {
+    "ipa": "ˈɛrluːm"
+  },
+  "Helice": {
+    "ipa": "ˈhɛlɪs"
+  },
+  "Helm": {
+    "ipa": "ˈhɛlm"
+  },
+  "Helphen's": {
+    "ipa": "ˈhelθənz"
+  },
+  "Henricus": {
+    "ipa": "hɛnˈrɪkəs"
+  },
+  "Hermit": {
+    "ipa": "ˈhɜːrmɪt"
+  },
+  "Hero": {
+    "ipa": "ˈhɪroʊ"
+  },
+  "Hero's": {
+    "ipa": "ˈhɪroʊz"
+  },
+  "Hewg": {
+    "ipa": "hjuː"
+  },
+  "Hi": {
+    "ipa": "hiː"
+  },
+  "Hidden": {
+    "ipa": "ˈhɪdən"
+  },
+  "Hideaway": {
+    "ipa": "ˈhaɪdəweɪ"
+  },
+  "Hierodas": {
+    "ipa": "ˌhaɪəˈroʊdəs"
+  },
+  "High": {
+    "ipa": "ˈhaɪ"
+  },
+  "Highway": {
+    "ipa": "ˈhaɪweɪ"
+  },
+  "Hilde": {
+    "ipa": "ˈhɪldə"
+  },
+  "history": {
+    "ipa": "ˈhɪstəri"
+  },
+  "Hoarah": {
+    "ipa": "ˈhoʊərə"
+  },
+  "Hoarfrost": {
+    "ipa": "ˈhoʊrfrɔːst"
+  },
+  "Hold": {
+    "ipa": "ˈhoʊld"
+  },
+  "Hood": {
+    "ipa": "ˈhʊd"
+  },
+  "Horned": {
+    "ipa": "ˈhɔːrnd"
+  },
+  "Hornsent": {
+    "ipa": "ˈhɔːrnˌsent"
+  },
+  "Hornshield": {
+    "ipa": "ˈhɔːrnʃiːld"
+  },
+  "Hoslow": {
+    "ipa": "ˈhɒzloʊ"
+  },
+  "Hoslow's": {
+    "ipa": "ˈhɑːzloʊz"
+  },
+  "Hound": {
+    "ipa": "haʊnd"
+  },
+  "House": {
+    "ipa": "haʊs"
+  },
+  "Howl": {
+    "ipa": "haʊl"
+  },
+  "Hugues": {
+    "ipa": "hjuːˈɡeɪz"
+  },
+  "Hunt": {
+    "ipa": "ˈhʌnt"
+  },
+  "Hunter": {
+    "ipa": "ˈhʌntər"
+  },
+  "Husk": {
+    "ipa": "ˈhʌsk"
+  },
+  "Huw": {
+    "ipa": "ˈhjuː"
+  },
+  "Hyetta": {
+    "ipa": "haɪˈetə"
+  },
+  "Ice": {
+    "ipa": "aɪs"
+  },
+  "Icecrag": {
+    "ipa": "ˈaɪskræɡ"
+  },
+  "Icerind": {
+    "ipa": "ˈaɪsərɪnd"
+  },
+  "Icon": {
+    "ipa": "ˈaɪkɑːn"
+  },
+  "Idle": {
+    "ipa": "ˈaɪdəl"
+  },
+  "Igon": {
+    "ipa": "ˈɪɡɑːn"
+  },
+  "Igon's": {
+    "ipa": "ˈaɪɡɑːn"
+  },
+  "Iji": {
+    "ipa": "ˈɪdʒi"
+  },
+  "Iji's": {
+    "ipa": "ˈiːdʒiːz"
+  },
+  "Impaler": {
+    "ipa": "ɪmˈpeɪlɚ"
+  },
+  "Inaba": {
+    "ipa": "ɪˈnɑːbə"
+  },
+  "Incantations": {
+    "ipa": "ɪnkænˈteɪʃənz"
+  },
+  "indepth": {
+    "ipa": "ˈɪndepθ"
+  },
+  "Indepth": {
+    "ipa": "ɪnˈdɛpθ"
+  },
+  "Inquisition": {
+    "ipa": "ɪnkwɪˈzɪʃən"
+  },
+  "Inquisitor": {
+    "ipa": "ɪnˈkwɪzɪtər"
+  },
+  "Inquisitor's": {
+    "ipa": "ɪnˈkwɪzɪtərz"
+  },
+  "Introduction": {
+    "ipa": "ˌɪntrəˈdʌkʃən"
+  },
+  "Inverted": {
+    "ipa": "ɪnˈvɜːrtɪd"
+  },
+  "Irina": {
+    "ipa": "ɪˈriːnə"
+  },
+  "Irina's": {
+    "ipa": "ɪˈriːnəz"
+  },
+  "Irith": {
+    "ipa": "ˈɪrɪθ"
+  },
+  "Iron": {
+    "ipa": "ˈaɪərn"
+  },
+  "Ironjar": {
+    "ipa": "ˈaɪərəndʒɑːr"
+  },
+  "Isolated": {
+    "ipa": "ˈaɪsəˌleɪtɪd"
+  },
+  "Istvan": {
+    "ipa": "ɪstˈvɑːn"
+  },
+  "Jar": {
+    "ipa": "ˈdʒɑːr"
+  },
+  "Jarburg": {
+    "ipa": "ˈdʒɑːrˌbɜːrɡ"
+  },
+  "Jarwight": {
+    "ipa": "ˈdʒɑːrˌraɪt"
+  },
+  "Jaw": {
+    "ipa": "dʒɔː"
+  },
+  "Jolan": {
+    "ipa": "ˈdʒoʊlən"
+  },
+  "Jori": {
+    "ipa": "ˈdʒɔːri"
+  },
+  "Jori's": {
+    "ipa": "ˈdʒɔːriz"
+  },
+  "Juno": {
+    "ipa": "ˈdʒuːnoʊ"
+  },
+  "Kaiden": {
+    "ipa": "ˈkaɪdən"
+  },
+  "Kaiwa": {
+    "ipa": "ˈkaɪwə"
+  },
+  "Kale": {
+    "ipa": "ˈkeɪl"
+  },
+  "Kale's": {
+    "ipa": "ˈkeɪlz"
+  },
+  "Karolos": {
+    "ipa": "kəˈroʊloʊs"
+  },
+  "Kasa": {
+    "ipa": "ˈkɑːsə"
+  },
+  "Katana": {
+    "ipa": "kəˈtɑːnə"
+  },
+  "Katar": {
+    "ipa": "ˈkɑːtɑːr"
+  },
+  "Kenneth": {
+    "ipa": "ˈkɛnəθ"
+  },
+  "Key": {
+    "ipa": "kiː"
+  },
+  "Kindling": {
+    "ipa": "ˈkɪndlɪŋ"
+  },
+  "King": {
+    "ipa": "kɪŋ"
+  },
+  "King's": {
+    "ipa": "kɪŋz"
+  },
+  "Kingsrealm": {
+    "ipa": "ˈkɪŋzˌriːlm"
+  },
+  "Knife": {
+    "ipa": "naɪf"
+  },
+  "Knifeprint": {
+    "ipa": "ˈnaɪfprɪnt"
+  },
+  "Knight": {
+    "ipa": "naɪt"
+  },
+  "Knight's": {
+    "ipa": "ˈnaɪts"
+  },
+  "Knights": {
+    "ipa": "ˈnaɪts"
+  },
+  "Kood": {
+    "ipa": "ˈkuːd"
+  },
+  "Kotodama": {
+    "ipa": "ˌkoʊtoʊˈdɑːmə"
+  },
+  "Kowtower's": {
+    "ipa": "ˈkaʊˌtaʊərz"
+  },
+  "Kris": {
+    "ipa": "ˈkrɪs"
+  },
+  "Kristoff": {
+    "ipa": "ˈkrɪstɔf"
+  },
+  "Kukri": {
+    "ipa": "ˈkʊkri"
+  },
+  "Kyojin": {
+    "ipa": "ˈkjoʊdʒɪn"
+  },
+  "Labirith": {
+    "ipa": "ləˈbɪrɪθ"
+  },
+  "Laiedd": {
+    "ipa": "ˈleɪɛd"
+  },
+  "Lake": {
+    "ipa": "leɪk"
+  },
+  "Lakes": {
+    "ipa": "leɪks"
+  },
+  "Lamenter's": {
+    "ipa": "ˈlæmɛntərz"
+  },
+  "Lamina": {
+    "ipa": "ləˈmiːnə"
+  },
+  "Lands": {
+    "ipa": "lændz"
+  },
+  "Lannseax's": {
+    "ipa": "ˈlænseɪks"
+  },
+  "Lansseax": {
+    "ipa": "ˈlænsiːæks"
+  },
+  "Lansseax's": {
+    "ipa": "ˈlænseɪks"
+  },
+  "Lanya": {
+    "ipa": "ˈlɑːnjə"
+  },
+  "Large": {
+    "ipa": "ˈlɑːrdʒ"
+  },
+  "Laskyar": {
+    "ipa": "ˈlæskjɑːr"
+  },
+  "Latenna": {
+    "ipa": "ləˈtɛnə"
+  },
+  "Lazuli": {
+    "ipa": "ləˈzuːli"
+  },
+  "Leaden": {
+    "ipa": "ˈlɛdən"
+  },
+  "Leaf": {
+    "ipa": "ˈliːf"
+  },
+  "Leda": {
+    "ipa": "ˈleɪdə"
+  },
+  "Leda's": {
+    "ipa": "ˈleɪdəz"
+  },
+  "Left": {
+    "ipa": "lɛft"
+  },
+  "Legacy": {
+    "ipa": "ˈlɛɡəsi"
+  },
+  "Legwraps": {
+    "ipa": "ˈlɛɡræps"
+  },
+  "Lenne's": {
+    "ipa": "ˈlɛnɪz"
+  },
+  "Leonine": {
+    "ipa": "ˌliːəˈnaɪn"
+  },
+  "Lesser": {
+    "ipa": "ˈlɛsər"
+  },
+  "Letter": {
+    "ipa": "ˈlɛtər"
+  },
+  "Level": {
+    "ipa": "ˈlɛvəl"
+  },
+  "Leyndell": {
+    "ipa": "ˈleɪndɛl"
+  },
+  "Lhutel": {
+    "ipa": "ˈluːtɛl"
+  },
+  "Lichdragon": {
+    "ipa": "ˈlɪtʃdræɡən"
+  },
+  "Lift": {
+    "ipa": "lɪft"
+  },
+  "Light": {
+    "ipa": "laɪt"
+  },
+  "Lightning": {
+    "ipa": "ˈlɪtnɪŋ"
+  },
+  "Lightningbone": {
+    "ipa": "ˈlaɪtnɪŋboʊn"
+  },
+  "Lightningproof": {
+    "ipa": "ˈlaɪtnɪŋpruːf"
+  },
+  "Lily": {
+    "ipa": "ˈlɪli"
+  },
+  "Limgrave": {
+    "ipa": "ˈlɪmɡreɪv"
+  },
+  "Line": {
+    "ipa": "ˈlaɪn"
+  },
+  "Lineage": {
+    "ipa": "ˈlɪnɪdʒ"
+  },
+  "Lion": {
+    "ipa": "ˈlaɪən"
+  },
+  "Little": {
+    "ipa": "ˈlɪtəl"
+  },
+  "Liturgical": {
+    "ipa": "ləˈtɜːrdʒɪkəl"
+  },
+  "Liurnia": {
+    "ipa": "liˈɜːrniə"
+  },
+  "Liurnian": {
+    "ipa": "liˈɜːrniən"
+  },
+  "Liver": {
+    "ipa": "ˈlɪvər"
+  },
+  "Logur": {
+    "ipa": "ˈloʊɡɜːr"
+  },
+  "Loincloth": {
+    "ipa": "ˈlɔɪnˌklɔːθ"
+  },
+  "Longbow": {
+    "ipa": "ˈlɔːŋboʊ"
+  },
+  "Lookout": {
+    "ipa": "ˈlʊkˌaʊt"
+  },
+  "Lord": {
+    "ipa": "lɔːrd"
+  },
+  "Lordsworn's": {
+    "ipa": "ˈlɔːrdzwɔːrnz"
+  },
+  "Loretta": {
+    "ipa": "loʊˈrɛtə"
+  },
+  "Loretta's": {
+    "ipa": "ləˈrɛtəz"
+  },
+  "Loux": {
+    "ipa": "ˈluː"
+  },
+  "Loux's": {
+    "ipa": "ˈluː"
+  },
+  "Lower": {
+    "ipa": "ˈloʊər"
+  },
+  "Lucaria": {
+    "ipa": "luːˈkɛːriə"
+  },
+  "Lucarian": {
+    "ipa": "luːˈkɑːriən"
+  },
+  "Lucent": {
+    "ipa": "ˈluːsənt"
+  },
+  "Lure": {
+    "ipa": "ˈlʊər"
+  },
+  "Lusat": {
+    "ipa": "ˈluːsæt"
+  },
+  "Lusat's": {
+    "ipa": "ˈluːsæt"
+  },
+  "Mad": {
+    "ipa": "mæd"
+  },
+  "Magic": {
+    "ipa": "ˈmædʒɪk"
+  },
+  "Magica": {
+    "ipa": "ˈmædʒɪkə"
+  },
+  "Magicbone": {
+    "ipa": "ˈmædʒɪkboʊn"
+  },
+  "Magma": {
+    "ipa": "ˈmæɡmə"
+  },
+  "Maiden": {
+    "ipa": "ˈmeɪdən"
+  },
+  "Main": {
+    "ipa": "meɪn"
+  },
+  "Makar": {
+    "ipa": "ˈmɑːkɑːr"
+  },
+  "Malefactor's": {
+    "ipa": "ˈmælɪfæktərz"
+  },
+  "Maleigh": {
+    "ipa": "ˈmeɪleɪ"
+  },
+  "Malenia": {
+    "ipa": "məˈleɪniə"
+  },
+  "Malenia's": {
+    "ipa": "məˈleɪniəz"
+  },
+  "Maliketh": {
+    "ipa": "ˈmɑːlɪkɛθ"
+  },
+  "Maliketh's": {
+    "ipa": "ˈmɑːlɪkɛθz"
+  },
+  "Manchettes": {
+    "ipa": "ˌmænˈʃɛts"
+  },
+  "Manor": {
+    "ipa": "ˈmænər"
+  },
+  "Manse": {
+    "ipa": "ˈmænz"
+  },
+  "Manus": {
+    "ipa": "ˈmɑnəs"
+  },
+  "Map": {
+    "ipa": "mæp"
+  },
+  "Marais": {
+    "ipa": "məˈreɪ"
+  },
+  "Margit": {
+    "ipa": "ˈmɑːrɡɪt"
+  },
+  "Margit's": {
+    "ipa": "ˈmɑːrɡɪts"
+  },
+  "Marigga": {
+    "ipa": "ˈmærɪɡə"
+  },
+  "Marika": {
+    "ipa": "məˈriːkə"
+  },
+  "Marika's": {
+    "ipa": "məˈriːkəz"
+  },
+  "Mariner": {
+    "ipa": "ˈmærinər"
+  },
+  "Mask": {
+    "ipa": "mæsk"
+  },
+  "Master": {
+    "ipa": "ˈmæstɚ"
+  },
+  "Mastery": {
+    "ipa": "ˈmæstəri"
+  },
+  "Mausoleum": {
+    "ipa": "mɔːˈsoʊliəm"
+  },
+  "Medallion": {
+    "ipa": "məˈdæliən"
+  },
+  "Meera": {
+    "ipa": "ˈmɪərə"
+  },
+  "Melina": {
+    "ipa": "məˈliːnə"
+  },
+  "Memento": {
+    "ipa": "məˈmɛntoʊ"
+  },
+  "Merchant": {
+    "ipa": "ˈmɜːtʃənt"
+  },
+  "Merchant's": {
+    "ipa": "ˈmɜːrtʃənts"
+  },
+  "Message": {
+    "ipa": "ˈmɛsɪdʒ"
+  },
+  "Messmer": {
+    "ipa": "ˈmɛsmər"
+  },
+  "Messmer's": {
+    "ipa": "ˈmɛsmɚz"
+  },
+  "Messmerfire": {
+    "ipa": "ˈmɛsmərfaɪər"
+  },
+  "Meteorite": {
+    "ipa": "ˈmiːtiərˌaɪt"
+  },
+  "Metyr": {
+    "ipa": "ˈmeɪtɪr"
+  },
+  "Midra": {
+    "ipa": "ˈmiːdrə"
+  },
+  "Midra's": {
+    "ipa": "ˈmiːdrəz"
+  },
+  "Militia": {
+    "ipa": "məˈlɪʃə"
+  },
+  "Milos": {
+    "ipa": "ˈmaɪloʊs"
+  },
+  "Miner": {
+    "ipa": "ˈmaɪnər"
+  },
+  "Miniature": {
+    "ipa": "ˈmɪnɪtʃər"
+  },
+  "Minor": {
+    "ipa": "ˈmaɪnər"
+  },
+  "Miquella": {
+    "ipa": "mɪˈkwɛlə"
+  },
+  "Miquella's": {
+    "ipa": "mɪˈkwɛləz"
+  },
+  "Miquellan": {
+    "ipa": "mɪˈkwɛlən"
+  },
+  "Miranda": {
+    "ipa": "mɪˈrændə"
+  },
+  "Miriam": {
+    "ipa": "ˈmɪriəm"
+  },
+  "Miriel": {
+    "ipa": "mɪˈriːəl"
+  },
+  "Miriel's": {
+    "ipa": "mɪˈriːəlz"
+  },
+  "Mirrorhelm": {
+    "ipa": "ˈmɪrərˌhɛlm"
+  },
+  "Misbegotten": {
+    "ipa": "ˌmɪsbɪˈɡɑːtən"
+  },
+  "Misericorde": {
+    "ipa": "ˌmɪzərɪˈkɔːrd"
+  },
+  "Mist": {
+    "ipa": "ˈmɪst"
+  },
+  "Mistwood": {
+    "ipa": "ˈmɪstwʊd"
+  },
+  "Miyr": {
+    "ipa": "ˈmiːɪr"
+  },
+  "Mohg": {
+    "ipa": "moʊɡ"
+  },
+  "Mohg's": {
+    "ipa": "moʊɡz"
+  },
+  "Mohgwyn": {
+    "ipa": "ˈmoʊɡwaɪn"
+  },
+  "Mohgwyn's": {
+    "ipa": "moʊɡˈwaɪnz"
+  },
+  "Monk": {
+    "ipa": "ˈmʌŋk"
+  },
+  "Moon": {
+    "ipa": "muːn"
+  },
+  "Moonblade": {
+    "ipa": "ˈmuːnbleɪd"
+  },
+  "Moongrum": {
+    "ipa": "ˈmuːnɡrəm"
+  },
+  "Moonrithyll": {
+    "ipa": "muːnˈrɪθɪl"
+  },
+  "Moonrithyll's": {
+    "ipa": "muːnˈrɪθɪlz"
+  },
+  "Moons": {
+    "ipa": "ˈmuːnz"
+  },
+  "Morgot": {
+    "ipa": "ˈmɔːrɡɑːt"
+  },
+  "Morgott": {
+    "ipa": "ˈmɔːrɡɑːt"
+  },
+  "Morgott's": {
+    "ipa": "ˈmɔːrɡɑːts"
+  },
+  "Morne": {
+    "ipa": "ˈmɔrn"
+  },
+  "Mother": {
+    "ipa": "ˈmʌðər"
+  },
+  "Mouflon": {
+    "ipa": "ˈmuːflɒn"
+  },
+  "Mountaintops": {
+    "ipa": "ˈmaʊntəntɑːps"
+  },
+  "Mt": {
+    "ipa": "ˈmaʊnt"
+  },
+  "Nagakiba": {
+    "ipa": "nɑːɡəˈkiːbə"
+  },
+  "Nail": {
+    "ipa": "ˈneɪl"
+  },
+  "Nails": {
+    "ipa": "ˈneɪlz"
+  },
+  "Nanaya": {
+    "ipa": "nɑːˈnɑːjə"
+  },
+  "Nanaya's": {
+    "ipa": "nɑːˈnɑːjəz"
+  },
+  "Nataan": {
+    "ipa": "nəˈtɑːn"
+  },
+  "Naturalborn": {
+    "ipa": "ˌnætʃərəlˈbɔːrn"
+  },
+  "Necklace": {
+    "ipa": "ˈnɛkləs"
+  },
+  "Necromancer": {
+    "ipa": "ˈnɛkroʊˌmænsər"
+  },
+  "Nectarblood": {
+    "ipa": "ˈnɛktərˌblʌd"
+  },
+  "Needle": {
+    "ipa": "ˈniːdəl"
+  },
+  "Nepheli": {
+    "ipa": "nəˈfeɪli"
+  },
+  "Nerijus": {
+    "ipa": "nɛˈriːdʒəs"
+  },
+  "Night": {
+    "ipa": "naɪt"
+  },
+  "Nightreign": {
+    "ipa": "ˈnaɪtˌreɪn"
+  },
+  "no": {
+    "ipa": "noʊ"
+  },
+  "Noble": {
+    "ipa": "ˈnoʊbəl"
+  },
+  "Noble's": {
+    "ipa": "ˈnoʊbəlz"
+  },
+  "Nokron": {
+    "ipa": "ˈnɒkrən"
+  },
+  "Nokstella": {
+    "ipa": "nɑːkˈstɛlə"
+  },
+  "Nomadic": {
+    "ipa": "noʊˈmædɪk"
+  },
+  "North": {
+    "ipa": "nɔːrθ"
+  },
+  "Northeast": {
+    "ipa": "ˌnɔːrθˈiːst"
+  },
+  "Note": {
+    "ipa": "noʊt"
+  },
+  "Notes": {
+    "ipa": "noʊts"
+  },
+  "Nox": {
+    "ipa": "nɑːks"
+  },
+  "Numen's": {
+    "ipa": "ˈnjuːmənz"
+  },
+  "O": {
+    "ipa": "oʊ"
+  },
+  "Obsidian": {
+    "ipa": "ɑbˈsɪdiən"
+  },
+  "Occult": {
+    "ipa": "ˈɑːkəlt"
+  },
+  "of": {
+    "ipa": "əv"
+  },
+  "Ofnir": {
+    "ipa": "ˈɔːfnɪr"
+  },
+  "Ogha": {
+    "ipa": "ˈoʊɡə"
+  },
+  "Oil": {
+    "ipa": "ˈɔɪl"
+  },
+  "Okina": {
+    "ipa": "oʊˈkiːnə"
+  },
+  "Old": {
+    "ipa": "oʊld"
+  },
+  "Oleg": {
+    "ipa": "ɑːˈlɛɡ"
+  },
+  "Olivinus": {
+    "ipa": "ɑːˈlɪvɪnəs"
+  },
+  "Omen": {
+    "ipa": "ˈoʊmən"
+  },
+  "Omenkiller": {
+    "ipa": "ˈoʊmənˌkɪlər"
+  },
+  "Onze": {
+    "ipa": "ˈɑːnzeɪ"
+  },
+  "Onze's": {
+    "ipa": "ˈɑːnzɪz"
+  },
+  "Opaline": {
+    "ipa": "ˈɑːpəlɪn"
+  },
+  "Orb": {
+    "ipa": "ˈɔːrb"
+  },
+  "Order": {
+    "ipa": "ˈɔːrdər"
+  },
+  "Ordina": {
+    "ipa": "ɔːrˈdiːnə"
+  },
+  "Ordovis": {
+    "ipa": "ɔːrˈdoʊvɪs"
+  },
+  "Ordovis's": {
+    "ipa": "ɔːrˈdoʊvɪsɪz"
+  },
+  "Oridys's": {
+    "ipa": "ɔːˈrɪdɪsɪz"
+  },
+  "Ornis": {
+    "ipa": "ˈɔːrnɪs"
+  },
+  "Outskirts": {
+    "ipa": "ˈaʊtskɜːrts"
+  },
+  "Palace": {
+    "ipa": "ˈpæləs"
+  },
+  "Past": {
+    "ipa": "ˈpæst"
+  },
+  "Pastor": {
+    "ipa": "ˈpæstər"
+  },
+  "Pata": {
+    "ipa": "ˈpɑtə"
+  },
+  "Path": {
+    "ipa": "pæθ"
+  },
+  "Pearldrake": {
+    "ipa": "ˈpɜːrlˌdreɪk"
+  },
+  "Pebble": {
+    "ipa": "ˈpɛbəl"
+  },
+  "Peeler": {
+    "ipa": "ˈpiːlər"
+  },
+  "Pelt": {
+    "ipa": "ˈpɛlt"
+  },
+  "Peninsula": {
+    "ipa": "pəˈnɪnsjələ"
+  },
+  "Perfumed": {
+    "ipa": "pərˈfjuːmd"
+  },
+  "Perfumer": {
+    "ipa": "pərˈfjuːmər"
+  },
+  "Petal": {
+    "ipa": "ˈpetəl"
+  },
+  "Phalanx": {
+    "ipa": "ˈfælænks"
+  },
+  "Phillia": {
+    "ipa": "ˈfɪliə"
+  },
+  "Physick": {
+    "ipa": "ˈfɪzɪk"
+  },
+  "Pickled": {
+    "ipa": "ˈpɪkəld"
+  },
+  "Pidia": {
+    "ipa": "ˈpɪdiə"
+  },
+  "Pidia's": {
+    "ipa": "ˈpɪdiəz"
+  },
+  "Piercer": {
+    "ipa": "ˈpɪərsər"
+  },
+  "Piquebone": {
+    "ipa": "ˈpiːkˌboʊn"
+  },
+  "Placidusax": {
+    "ipa": "ˈplæsɪduːsæks"
+  },
+  "Placidusax's": {
+    "ipa": "pləˈsɪdəˌsæks"
+  },
+  "Plateau": {
+    "ipa": "pləˈtoʊ"
+  },
+  "Pointed": {
+    "ipa": "ˈpɔɪntəd"
+  },
+  "Poleblade": {
+    "ipa": "ˈpoʊlbleɪd"
+  },
+  "Polter": {
+    "ipa": "ˈpoʊltər"
+  },
+  "Pot": {
+    "ipa": "pɒt"
+  },
+  "Potion": {
+    "ipa": "ˈpoʊʃən"
+  },
+  "Prayerbook": {
+    "ipa": "ˈprɛrˌbʊk"
+  },
+  "Preceptor": {
+    "ipa": "prɪˈsɛptər"
+  },
+  "Prelate's": {
+    "ipa": "ˈprɛlɪts"
+  },
+  "Priest": {
+    "ipa": "ˈprist"
+  },
+  "Primal": {
+    "ipa": "ˈpraɪməl"
+  },
+  "Primeval": {
+    "ipa": "praɪˈmiːvəl"
+  },
+  "Promised": {
+    "ipa": "ˈprɑːmɪst"
+  },
+  "Prosthesis": {
+    "ipa": "prɑːsˈθɛsɪs"
+  },
+  "Protection": {
+    "ipa": "prəˈtɛkʃən"
+  },
+  "Puppet": {
+    "ipa": "ˈpʌpət"
+  },
+  "Purification": {
+    "ipa": "ˌpjʊrɪfɪˈkeɪʃən"
+  },
+  "Putrid": {
+    "ipa": "ˈpjuːtrɪd"
+  },
+  "Pyrefly": {
+    "ipa": "ˈpaɪərflaɪ"
+  },
+  "Queelign": {
+    "ipa": "ˈkwiːliːn"
+  },
+  "Queelign's": {
+    "ipa": "ˈkwiːlɪɡz"
+  },
+  "Queen": {
+    "ipa": "kwiːn"
+  },
+  "Rabbath's": {
+    "ipa": "ˈræbəθs"
+  },
+  "Rada": {
+    "ipa": "ˈrɑːdə"
+  },
+  "Radagon": {
+    "ipa": "ˈrɑːdəɡɑːn"
+  },
+  "Radagon's": {
+    "ipa": "ˈrɑːdəɡənz"
+  },
+  "Radahn": {
+    "ipa": "rəˈdɑːn"
+  },
+  "Radahn's": {
+    "ipa": "ˈrɑːdɑːnz"
+  },
+  "Radiant": {
+    "ipa": "ˈreɪdiənt"
+  },
+  "Raging": {
+    "ipa": "ˈreɪdʒɪŋ"
+  },
+  "Rags": {
+    "ipa": "ˈræɡz"
+  },
+  "Rain": {
+    "ipa": "reɪn"
+  },
+  "Raisin": {
+    "ipa": "ˈreɪzən"
+  },
+  "Rakshasa": {
+    "ipa": "rɑːkˈʃɑːsə"
+  },
+  "Rakshasa's": {
+    "ipa": "rɑːkˈʃɑːsəz"
+  },
+  "Ralva": {
+    "ipa": "ˈrɑːlvə"
+  },
+  "Rampart": {
+    "ipa": "ˈræmpɑːrt"
+  },
+  "Ranah": {
+    "ipa": "ˈrɑːnə"
+  },
+  "Rancor": {
+    "ipa": "ˈræŋkər"
+  },
+  "Rancorcall": {
+    "ipa": "ˈræŋkərˌkɔːl"
+  },
+  "Ranni": {
+    "ipa": "ˈræni"
+  },
+  "Ranni's": {
+    "ipa": "ˈrɑːniz"
+  },
+  "Rapier": {
+    "ipa": "ˈræpiər"
+  },
+  "Rauh": {
+    "ipa": "rɑː"
+  },
+  "Raya": {
+    "ipa": "ˈrɑːjə"
+  },
+  "Recusant": {
+    "ipa": "rɪˈkjuːzənt"
+  },
+  "Red": {
+    "ipa": "rɛd"
+  },
+  "Redmane": {
+    "ipa": "ˈrɛdmeɪn"
+  },
+  "Redmanes": {
+    "ipa": "ˈrɛdmeɪnz"
+  },
+  "Reduvia": {
+    "ipa": "rɛˈduːviə"
+  },
+  "Regal": {
+    "ipa": "ˈriːɡəl"
+  },
+  "Regalia": {
+    "ipa": "rɪˈɡeɪliə"
+  },
+  "Regent": {
+    "ipa": "ˈriːdʒənt"
+  },
+  "Rellana": {
+    "ipa": "rɛˈlɑːnə"
+  },
+  "Rellana's": {
+    "ipa": "rɛˈlɑːnəz"
+  },
+  "Remedy": {
+    "ipa": "ˈrɛmədi"
+  },
+  "Remembrance": {
+    "ipa": "rɪˈmɛmbrəns"
+  },
+  "Renna": {
+    "ipa": "ˈrɛnə"
+  },
+  "Renna's": {
+    "ipa": "ˈrɛnəz"
+  },
+  "Rennala": {
+    "ipa": "rɛˈnɑːlə"
+  },
+  "Rennala's": {
+    "ipa": "rɛˈnɑːləz"
+  },
+  "Resentment": {
+    "ipa": "ˌrɛzənˈtmənt"
+  },
+  "Retaliation": {
+    "ipa": "ˌrɛtəˈleɪʃən"
+  },
+  "Rhia": {
+    "ipa": "ˈriːə"
+  },
+  "Right": {
+    "ipa": "raɪt"
+  },
+  "Rileigh": {
+    "ipa": "ˈraɪli"
+  },
+  "Rimed": {
+    "ipa": "ˈraɪmd"
+  },
+  "Ring": {
+    "ipa": "rɪŋ"
+  },
+  "Ringleader": {
+    "ipa": "ˈrɪŋɡliːdər"
+  },
+  "Ringleader's": {
+    "ipa": "ˈrɪŋliːdərz"
+  },
+  "Rings": {
+    "ipa": "ˈrɪŋz"
+  },
+  "Rise": {
+    "ipa": "raɪz"
+  },
+  "River": {
+    "ipa": "ˈrɪvər"
+  },
+  "Roar": {
+    "ipa": "roʊr"
+  },
+  "Robe": {
+    "ipa": "roʊb"
+  },
+  "Roderika": {
+    "ipa": "roʊˈdɛrɪkə"
+  },
+  "Rogier": {
+    "ipa": "ˈroʊʒeɪ"
+  },
+  "Rogier's": {
+    "ipa": "ˈroʊʒeɪz"
+  },
+  "Rold": {
+    "ipa": "roʊld"
+  },
+  "Rollo": {
+    "ipa": "ˈrɑːloʊ"
+  },
+  "Romina": {
+    "ipa": "roʊˈmiːnə"
+  },
+  "Romina's": {
+    "ipa": "roʊˈmiːnəz"
+  },
+  "Rosus": {
+    "ipa": "ˈroʊsəs"
+  },
+  "Rosus's": {
+    "ipa": "ˈroʊsəsɪz"
+  },
+  "Roundrock": {
+    "ipa": "ˈraʊndˌrɑːk"
+  },
+  "Roundtable": {
+    "ipa": "ˈraʊndteɪbəl"
+  },
+  "Rowa": {
+    "ipa": "ˈroʊwə"
+  },
+  "Royal": {
+    "ipa": "ˈrɔɪəl"
+  },
+  "Rugalea": {
+    "ipa": "ˈruːɡəliə"
+  },
+  "Ruin": {
+    "ipa": "ˈruːɪn"
+  },
+  "Ruined": {
+    "ipa": "ˈruːɪnd"
+  },
+  "Ruinous": {
+    "ipa": "ˈruːɪnəs"
+  },
+  "Ruins": {
+    "ipa": "ˈruːɪnz"
+  },
+  "Rune": {
+    "ipa": "ruːn"
+  },
+  "Runebear": {
+    "ipa": "ˈruːnˌbɛr"
+  },
+  "Runes": {
+    "ipa": "ruːnz"
+  },
+  "Rya": {
+    "ipa": "ˈrɪə"
+  },
+  "Rya's": {
+    "ipa": "ˈrɪəz"
+  },
+  "Rykard": {
+    "ipa": "ˈraɪkərd"
+  },
+  "Rykard's": {
+    "ipa": "ˈraɪkərdz"
+  },
+  "Sacred": {
+    "ipa": "ˈseɪkrɪd"
+  },
+  "Saint": {
+    "ipa": "ˈseɪnt"
+  },
+  "Salza's": {
+    "ipa": "ˈsælzəz"
+  },
+  "Sanctuary": {
+    "ipa": "ˈsæŋktʃuːɛri"
+  },
+  "Sanguine": {
+    "ipa": "ˈsæŋɡwɪn"
+  },
+  "Scadu": {
+    "ipa": "ˈskɑːduː"
+  },
+  "Scadutree": {
+    "ipa": "ˈskædutriː"
+  },
+  "Scaduview": {
+    "ipa": "ˈskæduːvjuː"
+  },
+  "Scalesword": {
+    "ipa": "ˈskeɪlswɔːrd"
+  },
+  "Scarab": {
+    "ipa": "ˈskɛrəb"
+  },
+  "Scarlet": {
+    "ipa": "ˈskɑːrlət"
+  },
+  "Scarseal": {
+    "ipa": "ˈskɑːrsiːl"
+  },
+  "Scepter": {
+    "ipa": "ˈsɛptər"
+  },
+  "Scrap": {
+    "ipa": "ˈskræp"
+  },
+  "Scriptstone": {
+    "ipa": "ˈskrɪptstoʊn"
+  },
+  "Seal": {
+    "ipa": "siːl"
+  },
+  "Sealbreaker": {
+    "ipa": "ˈsiːlbreɪkər"
+  },
+  "Sealed": {
+    "ipa": "siːld"
+  },
+  "Seamster": {
+    "ipa": "ˈsiːmstər"
+  },
+  "Second": {
+    "ipa": "ˈsɛkənd"
+  },
+  "Secret": {
+    "ipa": "ˈsiːkrɪt"
+  },
+  "Seed": {
+    "ipa": "ˈsiːd"
+  },
+  "Sellen": {
+    "ipa": "ˈsɛlən"
+  },
+  "Sellen's": {
+    "ipa": "ˈsɛlənz"
+  },
+  "Sellia": {
+    "ipa": "ˈsɛliə"
+  },
+  "Sellia's": {
+    "ipa": "ˈsɛliəz"
+  },
+  "Sellian": {
+    "ipa": "ˈsɛliən"
+  },
+  "Sellsword": {
+    "ipa": "ˈsɛlzˌwɜːrd"
+  },
+  "Seluvis": {
+    "ipa": "ˈsɛluːvɪs"
+  },
+  "Seluvis's": {
+    "ipa": "ˈsɛluːvɪsɪz"
+  },
+  "Senessax": {
+    "ipa": "ˈsɛnɪsæks"
+  },
+  "Sentinel": {
+    "ipa": "ˈsɛntɪnəl"
+  },
+  "Seppuku": {
+    "ipa": "sɛˈpʊkuː"
+  },
+  "Serosh": {
+    "ipa": "səˈroʊʃ"
+  },
+  "Serpent's": {
+    "ipa": "ˈsɜːrpənts"
+  },
+  "Servant": {
+    "ipa": "ˈsɜːrvənt"
+  },
+  "Set": {
+    "ipa": "sɛt"
+  },
+  "Settlement": {
+    "ipa": "ˈsɛtəlmənt"
+  },
+  "Shabriri": {
+    "ipa": "ʃəˈbɪəri"
+  },
+  "Shabriri's": {
+    "ipa": "ʃəˈbɪːriz"
+  },
+  "Shack": {
+    "ipa": "ʃæk"
+  },
+  "Shackle": {
+    "ipa": "ˈʃækəl"
+  },
+  "Shade": {
+    "ipa": "ʃeɪd"
+  },
+  "Shaded": {
+    "ipa": "ˈʃeɪdɪd"
+  },
+  "Shadow": {
+    "ipa": "ˈʃædoʊ"
+  },
+  "Shadow's": {
+    "ipa": "ˈʃæduː"
+  },
+  "Shamshir": {
+    "ipa": "ʃæmˈʃiːr"
+  },
+  "Shard": {
+    "ipa": "ʃɑːrd"
+  },
+  "Shattering": {
+    "ipa": "ˈʃætərɪŋ"
+  },
+  "Shield": {
+    "ipa": "ʃiːld"
+  },
+  "Shields": {
+    "ipa": "ʃiːldz"
+  },
+  "Shotel": {
+    "ipa": "ˈʃoʊtəl"
+  },
+  "Shriek": {
+    "ipa": "ʃriːk"
+  },
+  "Sickle": {
+    "ipa": "ˈsɪkəl"
+  },
+  "Side": {
+    "ipa": "ˈsaɪd"
+  },
+  "Siluria": {
+    "ipa": "sɪˈlʊəriə"
+  },
+  "Siluria's": {
+    "ipa": "sɪˈluːriəz"
+  },
+  "Silver": {
+    "ipa": "ˈsɪlvər"
+  },
+  "Siofra": {
+    "ipa": "ˈʃiːfərə"
+  },
+  "Sir": {
+    "ipa": "sɜːr"
+  },
+  "Sister": {
+    "ipa": "ˈsɪstər"
+  },
+  "Skill": {
+    "ipa": "ˈskɪl"
+  },
+  "Slam": {
+    "ipa": "slæm"
+  },
+  "Slash": {
+    "ipa": "ˈslæʃ"
+  },
+  "Slicer": {
+    "ipa": "ˈslaɪsər"
+  },
+  "Smarag": {
+    "ipa": "ˈsmɑːræɡ"
+  },
+  "Smarag's": {
+    "ipa": "ˈsmærɑːɡz"
+  },
+  "Smile": {
+    "ipa": "smaɪl"
+  },
+  "Smith": {
+    "ipa": "smɪθ"
+  },
+  "Smithing": {
+    "ipa": "ˈsmɪðɪŋ"
+  },
+  "Smithscript": {
+    "ipa": "ˈsmɪθskrɪpt"
+  },
+  "Snowfield": {
+    "ipa": "ˈsnoʊfild"
+  },
+  "Sol": {
+    "ipa": "ˈsoʊl"
+  },
+  "Soldier": {
+    "ipa": "ˈsoʊldʒər"
+  },
+  "Soldier's": {
+    "ipa": "ˈsoʊldʒɚz"
+  },
+  "Sorcerer": {
+    "ipa": "ˈsɔːrsərər"
+  },
+  "Sorceress": {
+    "ipa": "sɔːrˈsɛrɪs"
+  },
+  "Sorceries": {
+    "ipa": "ˈsɔːrsərɪz"
+  },
+  "Sorcery": {
+    "ipa": "ˈsɔːrsəri"
+  },
+  "Soreseal": {
+    "ipa": "ˈsoːrsiːl"
+  },
+  "South": {
+    "ipa": "saʊθ"
+  },
+  "Southwest": {
+    "ipa": "ˌsaʊθˈwɛst"
+  },
+  "Sovereignty": {
+    "ipa": "ˈsɑːvrɪnti"
+  },
+  "Spear": {
+    "ipa": "ˈspɪr"
+  },
+  "Spelldrake": {
+    "ipa": "ˈspɛldreɪk"
+  },
+  "Spiked": {
+    "ipa": "ˈspaɪkt"
+  },
+  "Spira": {
+    "ipa": "ˈspaɪrə"
+  },
+  "Spiraltree": {
+    "ipa": "ˈspaɪrəltriː"
+  },
+  "Spirit": {
+    "ipa": "ˈspɪrɪt"
+  },
+  "Spiritsprings": {
+    "ipa": "ˈspɪrɪtˌsprɪŋz"
+  },
+  "Spoken": {
+    "ipa": "ˈspoʊkən"
+  },
+  "Spritestone": {
+    "ipa": "ˈspraɪtstoʊn"
+  },
+  "Sprout": {
+    "ipa": "spraʊt"
+  },
+  "St": {
+    "ipa": "sænt"
+  },
+  "Staff": {
+    "ipa": "stæf"
+  },
+  "Staffs": {
+    "ipa": "ˈstæfs"
+  },
+  "Stakes": {
+    "ipa": "steɪks"
+  },
+  "Starcaller": {
+    "ipa": "ˈstɑːrkɔːlər"
+  },
+  "Starfall": {
+    "ipa": "ˈstɑːrˌfɔːl"
+  },
+  "Stars": {
+    "ipa": "ˈstɑːrz"
+  },
+  "Starscourge": {
+    "ipa": "ˈstɑːrskɜːrdʒ"
+  },
+  "Statue": {
+    "ipa": "ˈstætʃuː"
+  },
+  "Steeple": {
+    "ipa": "ˈstiːpəl"
+  },
+  "Stitcher": {
+    "ipa": "ˈstɪtʃər"
+  },
+  "Stomp": {
+    "ipa": "ˈstɑːmp"
+  },
+  "Stone": {
+    "ipa": "ˈstoʊn"
+  },
+  "Stonebarb": {
+    "ipa": "ˈstoʊnbɑːrb"
+  },
+  "Stonedigger": {
+    "ipa": "ˈstoʊnˌdɪɡər"
+  },
+  "Stonesword": {
+    "ipa": "ˈstoʊnswɜːrd"
+  },
+  "Storm": {
+    "ipa": "stɔːrm"
+  },
+  "Stormhawk": {
+    "ipa": "ˈstɔːrmhɔːk"
+  },
+  "Stormhill": {
+    "ipa": "ˈstɔːrmhɪl"
+  },
+  "Straight": {
+    "ipa": "streɪt"
+  },
+  "Study": {
+    "ipa": "ˈstʌdi"
+  },
+  "Summons": {
+    "ipa": "ˈsʌmənz"
+  },
+  "Surcoat": {
+    "ipa": "ˈsɜːrkoʊt"
+  },
+  "Swaddling": {
+    "ipa": "ˈswɑːdlɪŋ"
+  },
+  "Swamp": {
+    "ipa": "swæmp"
+  },
+  "Swift": {
+    "ipa": "swɪft"
+  },
+  "Sword": {
+    "ipa": "ˈsɔːrd"
+  },
+  "Swordhand": {
+    "ipa": "ˈsɔːrdhænd"
+  },
+  "Swordmaster": {
+    "ipa": "ˈsɔːrdˌmæstər"
+  },
+  "Swordsman": {
+    "ipa": "ˈsɔːrdzmən"
+  },
+  "Swordspear": {
+    "ipa": "ˈsɔːrdˌspɪr"
+  },
+  "Swordstress": {
+    "ipa": "ˈsɔːrdˌstrɛs"
+  },
+  "Table": {
+    "ipa": "ˈteɪbəl"
+  },
+  "Talisman": {
+    "ipa": "ˈtælɪzmən"
+  },
+  "Tanith": {
+    "ipa": "ˈtænɪθ"
+  },
+  "Tanith's": {
+    "ipa": "ˈtænɪθz"
+  },
+  "Taylew": {
+    "ipa": "ˈteɪluː"
+  },
+  "Taylew's": {
+    "ipa": "ˈteɪluːz"
+  },
+  "Tear": {
+    "ipa": "ˈtɪər"
+  },
+  "Terra": {
+    "ipa": "ˈtɛrə"
+  },
+  "Testu's": {
+    "ipa": "ˈtɛstuːz"
+  },
+  "the": {
+    "ipa": "ðə"
+  },
+  "The": {
+    "ipa": "ðə"
+  },
+  "Theodorix": {
+    "ipa": "θiːˈɑːdərɪks"
+  },
+  "Theodorix's": {
+    "ipa": "θiːˈɑːdərɪksɪz"
+  },
+  "Therolina": {
+    "ipa": "θɛrəˈliːnə"
+  },
+  "Thief": {
+    "ipa": "θiːf"
+  },
+  "Thiollier": {
+    "ipa": "θiːˈɑːliər"
+  },
+  "Thiollier's": {
+    "ipa": "θiːˈɑːliərz"
+  },
+  "Third": {
+    "ipa": "θɜːrd"
+  },
+  "Thops's": {
+    "ipa": "ˈθɑːps"
+  },
+  "Thrusting": {
+    "ipa": "ˈθrʌstɪŋ"
+  },
+  "Tibia": {
+    "ipa": "ˈtɪbiə"
+  },
+  "Tibia's": {
+    "ipa": "ˈtɪbiəz"
+  },
+  "Tiche": {
+    "ipa": "ˈtɪʃeɪ"
+  },
+  "Timeline": {
+    "ipa": "ˈtaɪmlaɪn"
+  },
+  "to": {
+    "ipa": "tu"
+  },
+  "Tomb": {
+    "ipa": "ˈtuːm"
+  },
+  "Tongue": {
+    "ipa": "tʌŋ"
+  },
+  "Torch": {
+    "ipa": "tɔːrtʃ"
+  },
+  "Toshokan": {
+    "ipa": "toʊˈʃoʊkən"
+  },
+  "Tower": {
+    "ipa": "ˈtaʊər"
+  },
+  "Towering": {
+    "ipa": "ˈtaʊərɪŋ"
+  },
+  "Town": {
+    "ipa": "ˈtaʊn"
+  },
+  "Tragoth": {
+    "ipa": "ˈtræɡoʊθ"
+  },
+  "Translation": {
+    "ipa": "trænzˈleɪʃən"
+  },
+  "Tree": {
+    "ipa": "triː"
+  },
+  "Treespear": {
+    "ipa": "ˈtriːspɪr"
+  },
+  "Tricia": {
+    "ipa": "ˈtrɪʃə"
+  },
+  "Trina": {
+    "ipa": "ˈtriːnə"
+  },
+  "Trina's": {
+    "ipa": "ˈtriːnəz"
+  },
+  "Trio": {
+    "ipa": "ˈtriːoʊ"
+  },
+  "Troll": {
+    "ipa": "ˈtroʊl"
+  },
+  "Trolls": {
+    "ipa": "ˈtroʊlz"
+  },
+  "Trousers": {
+    "ipa": "ˈtraʊzərz"
+  },
+  "Tunnel": {
+    "ipa": "ˈtʌnəl"
+  },
+  "Tunnels": {
+    "ipa": "ˈtʌnəlz"
+  },
+  "Twin": {
+    "ipa": "ˈtwɪn"
+  },
+  "Twinaxe": {
+    "ipa": "ˈtwɪnæks"
+  },
+  "Twinsage": {
+    "ipa": "ˈtwɪnseɪdʒ"
+  },
+  "Tyranny": {
+    "ipa": "ˈtɪrəni"
+  },
+  "Uchigatana": {
+    "ipa": "uːtʃiɡəˈtɑːnə"
+  },
+  "Uhl": {
+    "ipa": "uːl"
+  },
+  "Uld": {
+    "ipa": "uːld"
+  },
+  "Unborn": {
+    "ipa": "ʌnˈbɔːrn"
+  },
+  "Unte": {
+    "ipa": "ˈʌnte"
+  },
+  "Upgrades": {
+    "ipa": "ˈʌpɡreɪdz"
+  },
+  "Upper": {
+    "ipa": "ˈʌpər"
+  },
+  "Urumi": {
+    "ipa": "uːˈruːmi"
+  },
+  "Valkyrie's": {
+    "ipa": "ˈvælkiri"
+  },
+  "Vargram": {
+    "ipa": "ˈvɑːrɡræm"
+  },
+  "Varre": {
+    "ipa": "ˈvɑːreɪ"
+  },
+  "Varre's": {
+    "ipa": "vəˈreɪz"
+  },
+  "Velvet": {
+    "ipa": "ˈvɛlvɪt"
+  },
+  "Vial": {
+    "ipa": "ˈvaɪəl"
+  },
+  "Village": {
+    "ipa": "ˈvɪlɪdʒ"
+  },
+  "Violet": {
+    "ipa": "ˈvaɪələt"
+  },
+  "Void": {
+    "ipa": "ˈvɔɪd"
+  },
+  "Vortex": {
+    "ipa": "ˈvɔːrtɛks"
+  },
+  "Vows": {
+    "ipa": "vaʊz"
+  },
+  "Vulgar": {
+    "ipa": "ˈvʌlɡər"
+  },
+  "Vyke": {
+    "ipa": "vaɪk"
+  },
+  "Vyke's": {
+    "ipa": "vaɪks"
+  },
+  "Wakizashi": {
+    "ipa": "wɑːkɪˈzɑːʃi"
+  },
+  "Walkthrough": {
+    "ipa": "ˈwɔːkθruː"
+  },
+  "Wandering": {
+    "ipa": "ˈwɑːndərɪŋ"
+  },
+  "War": {
+    "ipa": "ˈwɔːr"
+  },
+  "Warrior": {
+    "ipa": "ˈwɔːriər"
+  },
+  "Watchdog": {
+    "ipa": "ˈwɑːtʃdɔːɡ"
+  },
+  "Waypoint": {
+    "ipa": "ˈweɪpɔɪnt"
+  },
+  "Weeping": {
+    "ipa": "ˈwiːpɪŋ"
+  },
+  "Well": {
+    "ipa": "wɛl"
+  },
+  "West": {
+    "ipa": "ˈwɛst"
+  },
+  "Wheel": {
+    "ipa": "wiːl"
+  },
+  "Whetblade": {
+    "ipa": "ˈwɛtbleɪd"
+  },
+  "Whip": {
+    "ipa": "wɪp"
+  },
+  "Whirlwind": {
+    "ipa": "ˈwɜːrlwɪnd"
+  },
+  "White": {
+    "ipa": "ˈwaɪt"
+  },
+  "Wild": {
+    "ipa": "waɪld"
+  },
+  "Wilhelm": {
+    "ipa": "ˈvɪlhɛlm"
+  },
+  "Wing": {
+    "ipa": "wɪŋ"
+  },
+  "Winged": {
+    "ipa": "wɪŋd"
+  },
+  "Witch": {
+    "ipa": "wɪtʃ"
+  },
+  "Witch's": {
+    "ipa": "ˈwɪtʃɪz"
+  },
+  "Woe": {
+    "ipa": "woʊ"
+  },
+  "Wolf": {
+    "ipa": "wʊlf"
+  },
+  "Wolfback": {
+    "ipa": "ˈwʊlfbæk"
+  },
+  "Wondrous": {
+    "ipa": "ˈwʌndrəs"
+  },
+  "Wormface": {
+    "ipa": "ˈwɜːrmfeɪs"
+  },
+  "Wyndham": {
+    "ipa": "ˈwɪndəm"
+  },
+  "Wyrm": {
+    "ipa": "wɜːrm"
+  },
+  "Wyrm's": {
+    "ipa": "wɜːrmz"
+  },
+  "yakitsukuse": {
+    "ipa": "ˌjɑːkɪtsuːˈkeɪseɪ"
+  },
+  "Yellow": {
+    "ipa": "ˈjɛloʊ"
+  },
+  "Yelough": {
+    "ipa": "ˈjɛloʊ"
+  },
+  "Ymir": {
+    "ipa": "ˈɪmɪr"
+  },
+  "Ymir's": {
+    "ipa": "ˈɪmɪrz"
+  },
+  "yo": {
+    "ipa": "joʊ"
+  },
+  "Yosh": {
+    "ipa": "jɑːʃ"
+  },
+  "Yura": {
+    "ipa": "ˈjʊrə"
+  },
+  "Zamor": {
+    "ipa": "ˈzæmɔːr"
+  },
+  "Zorayas": {
+    "ipa": "zɔːˈreɪəz"
+  },
+  "Zweihander": {
+    "ipa": "ˈtsvaɪˌhændər"
+  },
+  "メリナ": {
+    "ipa": "məˈriːnə"
+  }
+}

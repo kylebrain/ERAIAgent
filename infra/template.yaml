@@ -99,6 +99,14 @@ Resources:
                 Resource:
                   - !GetAtt KbDocsBucket.Arn
                   - !Sub ${KbDocsBucket.Arn}/*
+              - Effect: Allow
+                Action:
+                  - polly:SynthesizeSpeech
+                  - polly:GetLexicon
+                Resource: "*"
+              - Effect: Allow
+                Action: ssm:GetParameter
+                Resource: !Sub arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/elden-ring/openai-api-key
 
   # ── Lambda: monthly Fan API fetcher ──────────────────────────────────────
   FanApiFetcherFunction:
@@ -146,6 +154,46 @@ Resources:
           Properties:
             RestApiId: !Ref QueryApi
             Path: /ask
+            Method: OPTIONS
+
+  # ── Lambda: speech synthesis (Polly TTS) ──────────────────────────────────
+  SpeechHandlerFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: elden-ring-speech-handler
+      CodeUri: ../lambda/speech_handler/
+      Handler: speech_handler.handler
+      MemorySize: 256
+      Timeout: 30
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Environment:
+        Variables:
+          LEXICON_NAMES: "eldenring"
+          OPENAI_API_KEY_PARAM: "/elden-ring/openai-api-key"
+      Events:
+        SpeakPost:
+          Type: Api
+          Properties:
+            RestApiId: !Ref QueryApi
+            Path: /speak
+            Method: POST
+        SpeakOptions:
+          Type: Api
+          Properties:
+            RestApiId: !Ref QueryApi
+            Path: /speak
+            Method: OPTIONS
+        TranscribePost:
+          Type: Api
+          Properties:
+            RestApiId: !Ref QueryApi
+            Path: /transcribe
+            Method: POST
+        TranscribeOptions:
+          Type: Api
+          Properties:
+            RestApiId: !Ref QueryApi
+            Path: /transcribe
             Method: OPTIONS
 
   # ── API Gateway ───────────────────────────────────────────────────────────

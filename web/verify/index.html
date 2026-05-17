@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pronunciation Verifier</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<main>
+  <div class="progress" id="progress">--</div>
+
+  <h1 id="word" class="word">loading...</h1>
+
+  <label class="ipa-label" for="ipa">IPA</label>
+  <input id="ipa" class="ipa" spellcheck="false" autocomplete="off" autocorrect="off" autocapitalize="off" />
+
+  <div id="transcript" class="transcript"></div>
+
+  <div class="buttons">
+    <button id="btn-back" type="button">Back <kbd>b</kbd></button>
+    <button id="btn-play" type="button">Play <kbd>space</kbd></button>
+    <button id="btn-approve" class="primary" type="button">Approve <kbd>enter</kbd></button>
+    <button id="btn-edit" type="button">Re-record <kbd>e</kbd></button>
+    <button id="btn-stop" type="button" hidden>Stop <kbd>e</kbd></button>
+    <button id="btn-skip" type="button">Skip <kbd>n</kbd></button>
+  </div>
+
+  <div id="status" class="status"></div>
+
+  <audio id="audio" hidden></audio>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

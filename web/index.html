@@ -3,277 +3,35 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="api-endpoint" content="https://44wxv2u9qf.execute-api.us-east-1.amazonaws.com/prod" />
   <title>Elden Ring AI Guide</title>
-  <style>
-    :root {
-      --bg: #0d0d0d;
-      --surface: #1a1410;
-      --surface2: #221c14;
-      --border: #3d2e1e;
-      --gold: #c9a84c;
-      --gold-dim: #8a6d30;
-      --text: #e8dcc8;
-      --text-dim: #8a7d6a;
-      --user-bubble: #2a1f10;
-      --agent-bubble: #1a2215;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Georgia', serif;
-      display: flex;
-      flex-direction: column;
-      height: 100dvh;
-    }
-
-    header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 14px 20px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    header h1 {
-      font-size: 1.1rem;
-      color: var(--gold);
-      letter-spacing: 0.05em;
-    }
-
-    header span {
-      font-size: 0.75rem;
-      color: var(--text-dim);
-    }
-
-    #chat {
-      flex: 1;
-      overflow-y: auto;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
-
-    .bubble {
-      max-width: 780px;
-      padding: 12px 16px;
-      border-radius: 6px;
-      line-height: 1.6;
-      font-size: 0.95rem;
-    }
-
-    .bubble.user {
-      background: var(--user-bubble);
-      border: 1px solid var(--border);
-      align-self: flex-end;
-      color: var(--text);
-    }
-
-    .bubble.agent {
-      background: var(--agent-bubble);
-      border: 1px solid #2a3a20;
-      align-self: flex-start;
-      color: var(--text);
-    }
-
-    .bubble.agent .label {
-      font-size: 0.75rem;
-      color: var(--gold-dim);
-      margin-bottom: 6px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .bubble.agent .sources {
-      margin-top: 10px;
-      border-top: 1px solid var(--border);
-      padding-top: 8px;
-      font-size: 0.78rem;
-      color: var(--text-dim);
-    }
-
-    .bubble.agent .sources summary {
-      cursor: pointer;
-      color: var(--gold-dim);
-      margin-bottom: 4px;
-    }
-
-    .bubble.agent .sources p {
-      margin-top: 4px;
-      white-space: pre-wrap;
-    }
-
-    .bubble.thinking {
-      background: var(--surface2);
-      border: 1px solid var(--border);
-      align-self: flex-start;
-      color: var(--text-dim);
-      font-style: italic;
-      font-size: 0.85rem;
-      animation: pulse 1.5s ease-in-out infinite;
-    }
-
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
-
-    #input-area {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      padding: 14px 20px;
-      display: flex;
-      gap: 10px;
-    }
-
-    #question {
-      flex: 1;
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      color: var(--text);
-      font-family: inherit;
-      font-size: 0.95rem;
-      padding: 10px 14px;
-      resize: none;
-      height: 48px;
-      line-height: 1.4;
-    }
-
-    #question:focus { outline: none; border-color: var(--gold-dim); }
-
-    #question::placeholder { color: var(--text-dim); }
-
-    #send {
-      background: var(--gold-dim);
-      color: #0d0d0d;
-      border: none;
-      border-radius: 4px;
-      padding: 0 20px;
-      font-family: inherit;
-      font-size: 0.9rem;
-      font-weight: bold;
-      cursor: pointer;
-      letter-spacing: 0.04em;
-      transition: background 0.15s;
-    }
-
-    #send:hover:not(:disabled) { background: var(--gold); }
-    #send:disabled { opacity: 0.4; cursor: not-allowed; }
-
-    /* Config banner shown when API endpoint is not set */
-    #config-banner {
-      background: #3a1a00;
-      border-bottom: 1px solid #6a3a00;
-      padding: 10px 20px;
-      font-size: 0.82rem;
-      color: #f0a050;
-      display: none;
-    }
-  </style>
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
 
 <header>
   <h1>&#9876; Elden Ring AI Guide</h1>
-  <span>Powered by Amazon Bedrock &middot; Fextralife wiki &middot; game map data</span>
+  <span class="subtitle">Powered by Amazon Bedrock &middot; Fextralife wiki &middot; game map data</span>
+  <button id="mute-toggle" class="header-btn" title="Toggle voice playback">&#128264; Voice on</button>
+  <button id="test-toggle" class="header-btn test-mode" title="Toggle test mode (canned quotes)">Test mode</button>
+  <button id="gear-toggle" class="header-btn" title="Settings">&#9881;</button>
 </header>
 
+<div id="settings-panel"></div>
+
 <div id="config-banner">
-  &#9888; API endpoint not configured. Open <code>web/index.html</code> and set
-  <code>API_ENDPOINT</code> to your API Gateway URL from the CloudFormation outputs.
+  &#9888; API endpoint not configured. Edit <code>web/index.html</code> and set the
+  <code>api-endpoint</code> meta tag to your API Gateway URL from the CloudFormation outputs.
 </div>
 
 <div id="chat"></div>
 
 <div id="input-area">
+  <button id="mic" title="Click to speak (or press the configured keybind)">&#127908;</button>
   <textarea id="question" placeholder="Ask about enemies, items, locations, bosses..." rows="1"></textarea>
   <button id="send">Ask</button>
 </div>
 
-<script>
-  // ── Configuration ─────────────────────────────────────────────────────────
-  // Replace with the ApiEndpoint value from CloudFormation outputs.
-  const API_ENDPOINT = "REPLACE_WITH_API_GATEWAY_URL";
-  // ─────────────────────────────────────────────────────────────────────────
-
-  const chat = document.getElementById("chat");
-  const questionEl = document.getElementById("question");
-  const sendBtn = document.getElementById("send");
-  const banner = document.getElementById("config-banner");
-
-  if (API_ENDPOINT === "REPLACE_WITH_API_GATEWAY_URL") {
-    banner.style.display = "block";
-  }
-
-  function addBubble(cls, html) {
-    const div = document.createElement("div");
-    div.className = `bubble ${cls}`;
-    div.innerHTML = html;
-    chat.appendChild(div);
-    chat.scrollTop = chat.scrollHeight;
-    return div;
-  }
-
-  function escape(str) {
-    return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
-  }
-
-  async function ask() {
-    const question = questionEl.value.trim();
-    if (!question) return;
-
-    questionEl.value = "";
-    sendBtn.disabled = true;
-
-    addBubble("user", escape(question));
-    const thinking = addBubble("thinking", "Consulting the archives&hellip;");
-
-    try {
-      const res = await fetch(`${API_ENDPOINT}/ask`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question }),
-      });
-      const data = await res.json();
-      thinking.remove();
-
-      if (!res.ok) {
-        addBubble("agent", `<div class="label">Error</div>${escape(data.error || "Unknown error")}`);
-        return;
-      }
-
-      let html = `<div class="label">Elden Ring Guide</div>${escape(data.answer).replace(/\n/g, "<br>")}`;
-
-      if (data.sources && data.sources.length) {
-        const items = data.sources
-          .filter(s => s.excerpt)
-          .map(s => `<p>&#8226; ${escape(s.excerpt)}${s.score != null ? ` (score: ${s.score.toFixed(3)})` : ""}</p>`)
-          .join("");
-        html += `<details class="sources"><summary>Sources (${data.sources.length})</summary>${items}</details>`;
-      }
-
-      addBubble("agent", html);
-    } catch (err) {
-      thinking.remove();
-      addBubble("agent", `<div class="label">Network Error</div>${escape(String(err))}`);
-    } finally {
-      sendBtn.disabled = false;
-      questionEl.focus();
-    }
-  }
-
-  sendBtn.addEventListener("click", ask);
-  questionEl.addEventListener("keydown", e => {
-    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); ask(); }
-  });
-
-  // Greeting
-  addBubble("agent", `<div class="label">Elden Ring Guide</div>
-    Welcome, Tarnished. Ask me about enemies, item locations, boss strategies,
-    or what can be found near a specific area. I draw on the Fextralife wiki
-    and game data for grounded answers.`);
-</script>
+<script type="module" src="js/app.js"></script>
 </body>
 </html>

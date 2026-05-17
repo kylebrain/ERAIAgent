@@ -1,0 +1,280 @@
+:root {
+  --bg: #0d0d0d;
+  --surface: #1a1410;
+  --surface2: #221c14;
+  --border: #3d2e1e;
+  --gold: #c9a84c;
+  --gold-dim: #8a6d30;
+  --text: #e8dcc8;
+  --text-dim: #8a7d6a;
+  --user-bubble: #2a1f10;
+  --agent-bubble: #1a2215;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Georgia', serif;
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+}
+
+header {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+header h1 {
+  font-size: 1.1rem;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+}
+
+header .subtitle {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  flex: 1;
+}
+
+#chat {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.bubble {
+  max-width: 780px;
+  padding: 12px 16px;
+  border-radius: 6px;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.bubble.user {
+  background: var(--user-bubble);
+  border: 1px solid var(--border);
+  align-self: flex-end;
+  color: var(--text);
+}
+
+.bubble.agent {
+  background: var(--agent-bubble);
+  border: 1px solid #2a3a20;
+  align-self: flex-start;
+  color: var(--text);
+  position: relative;
+}
+
+.bubble.agent .label {
+  font-size: 0.75rem;
+  color: var(--gold-dim);
+  margin-bottom: 6px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.bubble.agent .sources {
+  margin-top: 10px;
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.bubble.agent .sources summary {
+  cursor: pointer;
+  color: var(--gold-dim);
+  margin-bottom: 4px;
+}
+
+.bubble.agent .sources p {
+  margin-top: 4px;
+  white-space: pre-wrap;
+}
+
+.bubble.thinking {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  align-self: flex-start;
+  color: var(--text-dim);
+  font-style: italic;
+  font-size: 0.85rem;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+#input-area {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 14px 20px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+#question {
+  flex: 1;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.95rem;
+  padding: 10px 14px;
+  resize: none;
+  height: 48px;
+  line-height: 1.4;
+}
+
+#question:focus { outline: none; border-color: var(--gold-dim); }
+#question::placeholder { color: var(--text-dim); }
+
+#question.listening {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.25);
+}
+
+#send {
+  background: var(--gold-dim);
+  color: #0d0d0d;
+  border: none;
+  border-radius: 4px;
+  padding: 0 20px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: bold;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: background 0.15s;
+  height: 48px;
+}
+
+#send:hover:not(:disabled) { background: var(--gold); }
+#send:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Header buttons (mute, test-mode, gear) */
+.header-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-family: inherit;
+  font-size: 0.78rem;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+  transition: all 0.15s;
+}
+
+.header-btn:hover { color: var(--gold); border-color: var(--gold-dim); }
+.header-btn.active { color: var(--gold); border-color: var(--gold-dim); background: rgba(201, 168, 76, 0.08); }
+
+.header-btn.test-mode.active {
+  color: #f0b050;
+  border-color: #b07020;
+  background: rgba(240, 176, 80, 0.1);
+}
+
+/* Mic button */
+#mic {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  border-radius: 4px;
+  width: 48px;
+  height: 48px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+#mic:hover { color: var(--gold); border-color: var(--gold-dim); }
+#mic.recording { color: var(--gold); border-color: var(--gold); animation: pulse 1s ease-in-out infinite; }
+#mic:disabled, #mic.unsupported { display: none; }
+
+/* Speaker icon on agent bubbles */
+.speaker-btn {
+  background: transparent;
+  border: none;
+  color: var(--gold-dim);
+  cursor: pointer;
+  padding: 2px 6px;
+  font-size: 0.9rem;
+  float: right;
+  margin-left: 8px;
+  border-radius: 3px;
+  transition: all 0.15s;
+}
+
+.speaker-btn:hover { color: var(--gold); background: rgba(201, 168, 76, 0.1); }
+.speaker-btn.playing { color: var(--gold); animation: pulse 1.2s ease-in-out infinite; }
+
+/* Settings panel (gear dropdown) */
+#settings-panel {
+  position: absolute;
+  top: 56px;
+  right: 20px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 14px 16px;
+  min-width: 260px;
+  display: none;
+  z-index: 100;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+#settings-panel.open { display: block; }
+
+#settings-panel .row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px 0;
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+#settings-panel label { color: var(--text-dim); }
+
+#settings-panel select, #settings-panel .keybind-capture {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 4px 8px;
+  border-radius: 3px;
+  min-width: 110px;
+  text-align: center;
+}
+
+#settings-panel .keybind-capture {
+  cursor: pointer;
+}
+
+#settings-panel .keybind-capture.capturing {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+/* Config banner shown when API endpoint is not set */
+#config-banner {
+  background: #3a1a00;
+  border-bottom: 1px solid #6a3a00;
+  padding: 10px 20px;
+  font-size: 0.82rem;
+  color: #f0a050;
+  display: none;
+}

@@ -220,16 +220,107 @@ aws cloudformation deploy \
 
 ### Phase 5 — Deploy the Web UI
 
-1. Edit `web/index.html` — replace `REPLACE_WITH_API_GATEWAY_URL` with the
-   `ApiEndpoint` value from the CloudFormation outputs.
+1. Edit `web/index.html` — set the `content` attribute of the
+   `<meta name="api-endpoint">` tag to the `ApiEndpoint` value from the
+   CloudFormation outputs.
 
-2. Upload (use the `WebBucketName` from the CloudFormation outputs, or
-   `$WEB_BUCKET` from your `.env`):
+2. Upload the whole `web/` directory so HTML, CSS, and JS modules all land with
+   correct content types (the AWS CLI infers MIME types from extension):
    ```bash
-   aws s3 cp web/index.html s3://"$WEB_BUCKET"/index.html --content-type text/html
+   aws s3 sync web/ s3://"$WEB_BUCKET"/ --delete
    ```
 
 3. Open the `WebsiteUrl` from the CloudFormation outputs in your browser.
+
+---
+
+### Phase 5a — Voice features
+
+The UI ships with two voice features:
+
+- **Speech-to-text** via **OpenAI Whisper** through the `/transcribe` endpoint.
+  Click the mic button (or use the configurable global keybind under gear →
+  "Mic keybind") to enter conversation mode. The browser records via
+  `MediaRecorder` and detects utterance boundaries with a Web Audio RMS-based
+  VAD (~700ms of silence cuts the chunk). Each utterance is POSTed to
+  `/transcribe`, which calls Whisper biased with a lexicon-derived prompt of
+  Elden Ring proper nouns (see Phase 5b) — so "Radahn", "Caelid", "Mohgwyn"
+  transcribe correctly instead of as English near-matches. Works in any browser
+  with `getUserMedia` + `MediaRecorder` (Chromium/Firefox/Safari) over HTTPS.
+
+- **Text-to-speech** via the `/speak` endpoint, which calls **Amazon Polly**
+  (Neural engine; default voice **Stephen**, others selectable in the gear
+  menu). Auto-plays on each answer when "Voice on" is toggled; the speaker
+  icon on each bubble always works for manual replay.
+
+Polly is a separate service from Bedrock, so Polly works even when Bedrock
+inference quotas are constrained. Polly does not need explicit model-access
+opt-in like Bedrock does.
+
+There is also a **Test mode** toggle in the header. When enabled, the UI
+bypasses the `/ask` endpoint entirely and returns a random Elden Ring quote
+from a local bank — handy for exercising the full voice pipeline (STT → render
+→ TTS) without depending on the Bedrock RAG path.
+
+### Phase 5b — Pronunciation lexicon (one-time, ~$1)
+
+Polly mispronounces fictional proper nouns by default. A one-time pipeline
+extracts every title from the wiki S3 prefix, uses Claude (direct Anthropic
+API — separate from Bedrock) to generate IPA pronunciations, compiles a PLS
+lexicon, and uploads it to Polly. The Lambda passes the lexicon name(s) on
+every synthesis call.
+
+```bash
+export ANTHROPIC_API_KEY=sk-ant-...
+python scripts/extract_wiki_terms.py --bucket "$KB_DOCS_BUCKET"
+python scripts/generate_pronunciations.py
+# (optional) edit infra/lexicons/overrides.json to fix anything that sounds wrong
+python scripts/build_lexicon.py
+python scripts/upload_lexicon.py
+python scripts/build_stt_prompt.py   # rebuild Whisper STT prompt from the lexicon
+```
+
+`build_lexicon.py` prints a `LEXICON_NAMES` value (e.g. `eldenring` or
+`eldenring,eldenringb,eldenringc` if sharded) that you copy into the
+`SpeechHandlerFunction.Environment.Variables.LEXICON_NAMES` field in
+`infra/template.yaml`, then redeploy. (Polly lexicon names must match
+`[0-9A-Za-z]{1,20}`, so no underscores or dashes.)
+
+`build_stt_prompt.py` writes `lambda/speech_handler/stt_prompt.txt`, which the
+speech Lambda bakes into every Whisper call to bias proper-noun transcription.
+Re-run it whenever the lexicon or overrides change, then redeploy so the new
+prompt ships with the Lambda.
+
+**Fixing a mispronunciation.** If Polly says "mawg" instead of "moag" for Mohg,
+add `{"Mohg": "moʊɡ"}` to `infra/lexicons/overrides.json`, re-run
+`build_lexicon.py` and `upload_lexicon.py`. Overrides always win over the
+LLM-generated map.
+
+The Anthropic API key is billed by Anthropic directly and is **not** affected
+by Bedrock quotas.
+
+### Phase 5c — OpenAI API key for Whisper STT (one-time)
+
+The `/transcribe` endpoint calls OpenAI Whisper, so the speech Lambda needs an
+OpenAI API key. Store it as an encrypted SSM Parameter (the Lambda reads it on
+cold start with `ssm:GetParameter`):
+
+```bash
+aws ssm put-parameter \
+  --name "/elden-ring/openai-api-key" \
+  --type SecureString \
+  --value "sk-..." \
+  --overwrite
+```
+
+The parameter name is hard-coded in `infra/template.yaml`
+(`SpeechHandlerFunction.Environment.Variables.OPENAI_API_KEY_PARAM` and the
+matching IAM resource ARN). If you ever change the name, update both.
+
+OpenAI Whisper pricing is **$0.006 / minute** of audio, billed by OpenAI
+directly — independent of AWS spend. At typical conversational pace
+(~150 utterances/hr × 3 s each = 7.5 min/hr) that's roughly $0.05/hr of mic
+time.
 
 ---
 
