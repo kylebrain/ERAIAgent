@@ -15,12 +15,11 @@ import os
 import json
 import base64
 import time
-import urllib.request
-import urllib.error
 from pathlib import Path
 
 import boto3
 from botocore.exceptions import ClientError
+import urllib3
 
 import ipa_corrector
 
@@ -35,11 +34,16 @@ MAX_AUDIO_BYTES = 8 * 1024 * 1024  # 8 MB — API GW payload cap kicks in first
 ASSEMBLYAI_UPLOAD_URL = "https://api.assemblyai.com/v2/upload"
 ASSEMBLYAI_TRANSCRIPT_URL = "https://api.assemblyai.com/v2/transcript"
 ASSEMBLYAI_SPEECH_MODELS = ["universal-3-pro", "universal-2"]
-ASSEMBLYAI_POLL_INTERVAL_SEC = 0.5
+ASSEMBLYAI_POLL_INTERVAL_SEC = 0.2
 ASSEMBLYAI_MAX_WAIT_SEC = 20
 
 polly = boto3.client("polly", region_name=REGION)
 ssm = boto3.client("ssm", region_name=REGION)
+
+# Single pooled HTTPS connection, reused across the upload/create/poll calls
+# (all hit api.assemblyai.com) and kept warm across invocations on the same
+# container — avoids a fresh TLS handshake per request.
+_aai_http = urllib3.PoolManager(maxsize=4)
 
 # Loaded lazily on first /transcribe call, then cached for the warm container.
 _assemblyai_key: str | None = None
@@ -148,10 +152,6 @@ def _handle_transcribe(event):
     print(f"Transcribing {len(audio_bytes)} bytes of audio with {len(_get_keyterms())} keyterms")
     try:
         transcript = _assemblyai(audio_bytes, api_key, _get_keyterms())
-    except urllib.error.HTTPError as e:
-        body_text = e.read().decode("utf-8", errors="replace")[:500]
-        print(f"AssemblyAI HTTP {e.code}: {body_text}")
-        return _err(502, f"AssemblyAI error ({e.code}).")
     except Exception as e:
         print(f"AssemblyAI call failed: {e}")
         return _err(502, "AssemblyAI call failed.")
@@ -182,22 +182,32 @@ def _get_keyterms() -> list[str]:
     return _keyterms
 
 
+def _aai_request(method: str, url: str, api_key: str, *, body=None, content_type=None) -> dict:
+    """One AssemblyAI call over the shared keep-alive pool. Returns parsed JSON."""
+    headers = {"Authorization": api_key}
+    if content_type:
+        headers["Content-Type"] = content_type
+    resp = _aai_http.request(method, url, body=body, headers=headers)
+    if resp.status >= 400:
+        raise RuntimeError(f"AssemblyAI {method} {url} -> HTTP {resp.status}: {resp.data[:300]!r}")
+    return json.loads(resp.data.decode("utf-8"))
+
+
 def _assemblyai(audio_bytes: bytes, api_key: str, keyterms: list[str]) -> str:
+    # Per-step timing is logged at the end so CloudWatch shows exactly where the
+    # wall-clock goes (upload vs. create vs. model processing/polling). All three
+    # calls hit api.assemblyai.com over a single pooled (keep-alive) connection.
+    t_start = time.monotonic()
+
     # 1. Upload raw audio bytes to AssemblyAI's temporary storage.
-    upload_req = urllib.request.Request(
-        ASSEMBLYAI_UPLOAD_URL,
-        data=audio_bytes,
-        headers={
-            "Authorization": api_key,
-            "Content-Type": "application/octet-stream",
-        },
-        method="POST",
+    upload_resp = _aai_request(
+        "POST", ASSEMBLYAI_UPLOAD_URL, api_key,
+        body=audio_bytes, content_type="application/octet-stream",
     )
-    with urllib.request.urlopen(upload_req, timeout=20) as r:
-        upload_resp = json.loads(r.read().decode("utf-8"))
     upload_url = upload_resp.get("upload_url")
     if not upload_url:
         raise RuntimeError(f"AssemblyAI upload returned no upload_url: {upload_resp}")
+    t_upload = time.monotonic()
 
     # 2. Create transcript job with keyterm biasing.
     payload: dict = {
@@ -207,37 +217,34 @@ def _assemblyai(audio_bytes: bytes, api_key: str, keyterms: list[str]) -> str:
     }
     if keyterms:
         payload["keyterms_prompt"] = keyterms
-    create_req = urllib.request.Request(
-        ASSEMBLYAI_TRANSCRIPT_URL,
-        data=json.dumps(payload).encode("utf-8"),
-        headers={
-            "Authorization": api_key,
-            "Content-Type": "application/json",
-        },
-        method="POST",
+    create_resp = _aai_request(
+        "POST", ASSEMBLYAI_TRANSCRIPT_URL, api_key,
+        body=json.dumps(payload).encode("utf-8"), content_type="application/json",
     )
-    with urllib.request.urlopen(create_req, timeout=20) as r:
-        create_resp = json.loads(r.read().decode("utf-8"))
     transcript_id = create_resp.get("id")
     if not transcript_id:
         raise RuntimeError(f"AssemblyAI create returned no id: {create_resp}")
+    t_create = time.monotonic()
 
     # 3. Poll for completion.
     poll_url = f"{ASSEMBLYAI_TRANSCRIPT_URL}/{transcript_id}"
-    deadline = time.monotonic() + ASSEMBLYAI_MAX_WAIT_SEC
+    deadline = t_create + ASSEMBLYAI_MAX_WAIT_SEC
+    polls = 0
     while time.monotonic() < deadline:
-        poll_req = urllib.request.Request(
-            poll_url,
-            headers={"Authorization": api_key},
-            method="GET",
-        )
-        with urllib.request.urlopen(poll_req, timeout=10) as r:
-            poll_resp = json.loads(r.read().decode("utf-8"))
+        poll_resp = _aai_request("GET", poll_url, api_key)
+        polls += 1
         status = poll_resp.get("status")
-        if status == "completed":
+        if status in ("completed", "error"):
+            t_done = time.monotonic()
+            print(
+                f"AssemblyAI timing: upload={t_upload - t_start:.2f}s "
+                f"create={t_create - t_upload:.2f}s "
+                f"poll={t_done - t_create:.2f}s ({polls} polls) "
+                f"total={t_done - t_start:.2f}s"
+            )
+            if status == "error":
+                raise RuntimeError(f"AssemblyAI transcript error: {poll_resp.get('error')}")
             return (poll_resp.get("text") or "").strip()
-        if status == "error":
-            raise RuntimeError(f"AssemblyAI transcript error: {poll_resp.get('error')}")
         time.sleep(ASSEMBLYAI_POLL_INTERVAL_SEC)
 
     raise TimeoutError(

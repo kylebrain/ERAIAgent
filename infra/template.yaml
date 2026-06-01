@@ -173,7 +173,10 @@ Resources:
       FunctionName: elden-ring-speech-handler
       CodeUri: ../lambda/speech_handler/
       Handler: speech_handler.handler
-      MemorySize: 256
+      # 1024 MB ≈ 0.6 vCPU — Lambda network bandwidth scales with memory, so the
+      # AssemblyAI upload + create + poll round-trips run noticeably faster than
+      # at 256 MB. STT is latency-sensitive; the cost delta is negligible.
+      MemorySize: 1024
       Timeout: 30
       Role: !GetAtt LambdaExecutionRole.Arn
       Environment:
