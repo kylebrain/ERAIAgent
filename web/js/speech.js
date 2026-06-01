@@ -259,20 +259,23 @@ function blobToBase64(blob) {
   });
 }
 
-// Global keybind handler. Calls `trigger` when the configured key is pressed
-// outside of input/textarea focus.
+// Global keybind handler. Calls `trigger` when the configured key is pressed.
 export function bindMicKeybind(getKey, trigger) {
   window.addEventListener("keydown", e => {
     // Ignore OS key-repeat while the key is held — one press = one toggle.
     if (e.repeat) return;
-    const tag = (document.activeElement && document.activeElement.tagName) || "";
-    if (tag === "INPUT" || tag === "TEXTAREA") return;
     const key = getKey();
     if (!key) return;
     const matched = e.code === key || e.key === key;
-    if (matched) {
-      e.preventDefault();
-      trigger();
-    }
+    if (!matched) return;
+    // While typing in the question box, only steal non-printable keys (e.g.
+    // function keys). That keeps the keybind working after focus returns to
+    // the box — which the global AHK hotkey relies on — without hijacking
+    // keys you'd actually type, like Space.
+    const tag = (document.activeElement && document.activeElement.tagName) || "";
+    const inField = tag === "INPUT" || tag === "TEXTAREA";
+    if (inField && !/^F\d{1,2}$/.test(key)) return;
+    e.preventDefault();
+    trigger();
   });
 }
