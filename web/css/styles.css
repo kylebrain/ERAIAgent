@@ -112,6 +112,11 @@ header .subtitle {
   animation: pulse 1.5s ease-in-out infinite;
 }
 
+/* The transcribing indicator sits on the user (right) side. */
+.bubble.thinking.transcribing {
+  align-self: flex-end;
+}
+
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
 
 #input-area {

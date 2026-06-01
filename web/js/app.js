@@ -41,11 +41,9 @@ function addBubble(cls, html, { speakable = null } = {}) {
 
 async function playBubble(btn, text) {
   btn.classList.add("playing");
-  speech.suppressForTTS();
   await speech.speak(text, settings.get("voice"), {
     onEnd: () => {
       btn.classList.remove("playing");
-      speech.resumeAfterTTS();
     },
   });
 }
@@ -140,21 +138,31 @@ document.addEventListener("click", e => {
 });
 
 // ── Mic / STT wiring ─────────────────────────────────────────────────────────
-// Press once to enter conversation mode (continuous recognition, auto-submit
-// each utterance). Press again to exit. Recognition pauses during TTS so the
-// answer doesn't feed back into the mic.
+// Press once to start recording, press again to stop. On stop the whole take
+// is transcribed and submitted as a question.
+let transcribingBubble = null;
+function clearTranscribing() {
+  if (transcribingBubble) { transcribingBubble.remove(); transcribingBubble = null; }
+}
+
 function triggerMic() {
   if (!speech.sttSupported) return;
-  if (speech.isInConversation()) {
-    speech.stopConversation();
+  if (speech.isRecording()) {
+    speech.stopRecording();
     return;
   }
-  speech.startConversation({
+  speech.startRecording({
     onStart: () => {
       micBtn.classList.add("recording");
       questionEl.classList.add("listening");
     },
+    onTranscribeStart: () => {
+      transcribingBubble = addBubble("thinking transcribing", "Scribing…");
+    },
+    onTranscribeEnd: clearTranscribing,
     onUtterance: (text) => {
+      // Replace the "Transcribing…" indicator with the question + its answer.
+      clearTranscribing();
       questionEl.value = text;
       ask();
     },
@@ -168,7 +176,11 @@ function triggerMic() {
 if (!speech.sttSupported) {
   micBtn.classList.add("unsupported");
 } else {
-  micBtn.addEventListener("click", triggerMic);
+  micBtn.addEventListener("click", () => {
+    triggerMic();
+    // Drop focus so the default Space keybind doesn't also "click" the button.
+    micBtn.blur();
+  });
   speech.bindMicKeybind(() => settings.get("micKeybind"), triggerMic);
 }
 

@@ -70,58 +70,27 @@ export async function speak(text, voice, { onStart, onEnd } = {}) {
   catch (err) { console.warn("audio.play() failed:", err); if (onEnd) onEnd(); }
 }
 
-// ── STT (conversation mode, Whisper-backed) ──────────────────────────────────
+// ── STT (push-to-record, Whisper-backed) ─────────────────────────────────────
 //
-// Lifecycle:
-//   startConversation() → grab mic, run a silence-VAD loop. Each time speech
-//                         starts and then stops (~700ms of silence), we cut
-//                         the current MediaRecorder chunk, POST it to
-//                         /transcribe, and fire onUtterance() with the result.
-//   suppressForTTS()    → answer is being read aloud; pause VAD + recorder to
-//                         keep the TTS audio out of the next transcript.
-//   resumeAfterTTS()    → re-enable VAD + recorder.
-//   stopConversation()  → release mic, tear down audio graph.
+// Simple start/stop recording. The user toggles the mic (button or keybind):
+//   startRecording() → grab mic, start a MediaRecorder capturing everything.
+//   stopRecording()  → stop the recorder, POST the whole take to /transcribe,
+//                      fire onUtterance() with the result, then release the mic.
 //
-// We rely on AnalyserNode in time-domain mode to compute short-window RMS and
-// drive a tiny state machine. We do NOT use Web Speech API anywhere.
+// There is no voice-activity detection: one toggle-on/toggle-off pair produces
+// exactly one transcript. We do NOT use the Web Speech API anywhere.
 
-const VAD = {
-  // RMS thresholds on a normalized [-1,1] waveform.
-  speechStart: 0.025,
-  speechEnd: 0.015,
-  // Hysteresis windows.
-  silenceMsToFinalize: 1000,
-  minUtteranceMs: 250,
-  // Cap so a single utterance can't grow without bound.
-  maxUtteranceMs: 15000,
-  // Cap to avoid sending barely-anything chunks (smaller blobs are silence).
-  minUtteranceBytes: 1500,
-};
+// Skip blobs that are obviously too small to contain speech (an accidental
+// double-tap, or stopping the instant after starting).
+const MIN_UTTERANCE_BYTES = 1500;
 
-const conv = {
+const rec = {
   active: false,
-  suppressed: false,
   callbacks: null,
   stream: null,
-  audioCtx: null,
-  analyser: null,
   recorder: null,
   chunks: [],
-  speaking: false,
-  utteranceStartedAt: 0,
-  lastSpeechAt: 0,
-  rafHandle: 0,
-  // Per-recording state so we can decide what to do on the async 'stop' event.
-  recordingMode: null, // "finalize" | "abort"
-  // Set by stopConversation() when it wants the in-flight utterance flushed
-  // before teardown. Consumed at the tail of finalizeUtterance().
-  pendingStop: false,
 };
-
-function getAudioCtx() {
-  const Ctx = window.AudioContext || window.webkitAudioContext;
-  return new Ctx();
-}
 
 function pickMimeType() {
   const candidates = [
@@ -138,66 +107,38 @@ function pickMimeType() {
   return "";
 }
 
-function buildRecorder() {
-  const mime = pickMimeType();
-  const opts = mime ? { mimeType: mime } : undefined;
-  const rec = new MediaRecorder(conv.stream, opts);
-  conv.chunks = [];
-  conv.recordingMode = "abort";
-  rec.addEventListener("dataavailable", e => {
-    if (e.data && e.data.size > 0) conv.chunks.push(e.data);
+async function openMic() {
+  rec.stream = await navigator.mediaDevices.getUserMedia({
+    audio: {
+      echoCancellation: true,
+      noiseSuppression: true,
+      autoGainControl: true,
+    },
   });
-  rec.addEventListener("stop", () => {
-    const mode = conv.recordingMode;
-    const chunks = conv.chunks;
-    conv.chunks = [];
-    conv.recordingMode = null;
-    if (mode === "finalize") {
-      const blob = new Blob(chunks, { type: rec.mimeType || mime || "audio/webm" });
-      finalizeUtterance(blob);
-      return;
-    }
-    // abort path: if stopConversation is waiting on us, finish the teardown;
-    // otherwise rearm for the next utterance.
-    if (conv.pendingStop) {
-      completeStop();
-    } else if (conv.active && !conv.suppressed) {
-      armRecorder();
-    }
-  });
-  rec.start();
-  conv.recorder = rec;
 }
 
-function armRecorder() {
-  if (!conv.active || conv.suppressed) return;
-  if (conv.recorder && conv.recorder.state !== "inactive") return;
-  try { buildRecorder(); }
-  catch (err) { console.warn("MediaRecorder build failed:", err); }
-}
-
-function stopRecorder(mode) {
-  conv.recordingMode = mode;
-  const rec = conv.recorder;
-  conv.recorder = null;
-  if (rec && rec.state !== "inactive") {
-    try { rec.stop(); } catch {}
+function releaseMic() {
+  if (rec.stream) {
+    for (const t of rec.stream.getTracks()) {
+      try { t.stop(); } catch {}
+    }
   }
+  rec.stream = null;
 }
 
-async function finalizeUtterance(blob) {
+async function finalizeUtterance(blob, callbacks) {
   // Skip blobs that are obviously silence/background noise.
-  if (blob.size < VAD.minUtteranceBytes) {
-    afterFinalize();
-    return;
-  }
+  if (blob.size < MIN_UTTERANCE_BYTES) return;
+
   const endpoint = settings.apiEndpoint();
   if (!endpoint || endpoint === "REPLACE_WITH_API_GATEWAY_URL") {
     console.warn("/transcribe: API endpoint not configured");
-    afterFinalize();
     return;
   }
 
+  // We're committed to a /transcribe round-trip now — bracket it with the
+  // transcribe callbacks so the UI can show a "transcribing…" indicator.
+  if (callbacks && callbacks.onTranscribeStart) callbacks.onTranscribeStart();
   try {
     const audioB64 = await blobToBase64(blob);
     const res = await fetch(`${endpoint}/transcribe`, {
@@ -208,8 +149,8 @@ async function finalizeUtterance(blob) {
     if (res.ok) {
       const data = await res.json();
       const text = (data.transcript || "").trim();
-      if (text && conv.callbacks && conv.callbacks.onUtterance) {
-        conv.callbacks.onUtterance(text);
+      if (text && callbacks && callbacks.onUtterance) {
+        callbacks.onUtterance(text);
       }
     } else {
       console.warn("/transcribe returned", res.status);
@@ -217,158 +158,93 @@ async function finalizeUtterance(blob) {
   } catch (err) {
     console.warn("/transcribe failed:", err);
   } finally {
-    afterFinalize();
+    if (callbacks && callbacks.onTranscribeEnd) callbacks.onTranscribeEnd();
   }
 }
 
-function afterFinalize() {
-  // If stopConversation() is waiting for an in-flight finalize, complete the
-  // teardown now. Otherwise rearm for the next utterance.
-  if (conv.pendingStop) {
-    completeStop();
-  } else {
-    armRecorder();
-  }
-}
-
-function completeStop() {
-  conv.pendingStop = false;
-  const cb = conv.callbacks;
-  conv.callbacks = null;
-  teardown();
+// Reset all recording state to idle and fire onStop exactly once. Used for both
+// the normal stop path and every error/abort path so the two never desync.
+function finishTeardown() {
+  releaseMic();
+  rec.recorder = null;
+  rec.chunks = [];
+  rec.active = false;
+  const cb = rec.callbacks;
+  rec.callbacks = null;
   if (cb && cb.onStop) cb.onStop();
 }
 
-function vadLoop() {
-  if (!conv.active) return;
-  conv.rafHandle = requestAnimationFrame(vadLoop);
-  if (conv.suppressed || !conv.analyser) return;
+export async function startRecording(callbacks = {}) {
+  if (!sttSupported || rec.active) return false;
+  // Claim the active flag synchronously, before any await, so a second toggle
+  // that arrives while the mic is still opening can't start a parallel session.
+  rec.active = true;
+  rec.callbacks = callbacks;
 
-  const buf = new Float32Array(conv.analyser.fftSize);
-  conv.analyser.getFloatTimeDomainData(buf);
-  let sumSq = 0;
-  for (let i = 0; i < buf.length; i++) sumSq += buf[i] * buf[i];
-  const rms = Math.sqrt(sumSq / buf.length);
-  const now = performance.now();
-
-  if (conv.speaking) {
-    if (rms > VAD.speechEnd) conv.lastSpeechAt = now;
-    const utteranceMs = now - conv.utteranceStartedAt;
-    const silenceMs = now - conv.lastSpeechAt;
-    const tooLong = utteranceMs > VAD.maxUtteranceMs;
-    const longEnough = utteranceMs > VAD.minUtteranceMs;
-    if ((silenceMs > VAD.silenceMsToFinalize && longEnough) || tooLong) {
-      conv.speaking = false;
-      stopRecorder("finalize");
-    }
-  } else if (rms > VAD.speechStart) {
-    conv.speaking = true;
-    conv.utteranceStartedAt = now;
-    conv.lastSpeechAt = now;
-    armRecorder();
-  }
-}
-
-async function openMic() {
-  conv.stream = await navigator.mediaDevices.getUserMedia({
-    audio: {
-      echoCancellation: true,
-      noiseSuppression: true,
-      autoGainControl: true,
-    },
-  });
-  conv.audioCtx = getAudioCtx();
-  if (conv.audioCtx.state === "suspended") {
-    try { await conv.audioCtx.resume(); } catch {}
-  }
-  const src = conv.audioCtx.createMediaStreamSource(conv.stream);
-  conv.analyser = conv.audioCtx.createAnalyser();
-  conv.analyser.fftSize = 1024;
-  conv.analyser.smoothingTimeConstant = 0;
-  src.connect(conv.analyser);
-}
-
-function teardown() {
-  if (conv.rafHandle) cancelAnimationFrame(conv.rafHandle);
-  conv.rafHandle = 0;
-  if (conv.recorder && conv.recorder.state !== "inactive") {
-    try { conv.recorder.stop(); } catch {}
-  }
-  conv.recorder = null;
-  conv.chunks = [];
-  if (conv.stream) {
-    for (const t of conv.stream.getTracks()) {
-      try { t.stop(); } catch {}
-    }
-  }
-  conv.stream = null;
-  if (conv.audioCtx) {
-    try { conv.audioCtx.close(); } catch {}
-  }
-  conv.audioCtx = null;
-  conv.analyser = null;
-  conv.speaking = false;
-}
-
-export async function startConversation({ onStart, onUtterance, onStop } = {}) {
-  if (!sttSupported || conv.active) return false;
-  conv.callbacks = { onStart, onUtterance, onStop };
   try {
     await openMic();
   } catch (err) {
     console.warn("getUserMedia failed:", err);
-    const cb = conv.callbacks;
-    conv.callbacks = null;
-    if (cb && cb.onStop) cb.onStop();
+    finishTeardown();
     return false;
   }
-  conv.active = true;
-  conv.suppressed = false;
-  conv.speaking = false;
-  armRecorder();
-  vadLoop();
-  if (onStart) onStart();
+
+  // stopRecording() may have run while we were awaiting the mic.
+  if (!rec.active) {
+    releaseMic();
+    return false;
+  }
+
+  const mime = pickMimeType();
+  let recorder;
+  try {
+    recorder = new MediaRecorder(rec.stream, mime ? { mimeType: mime } : undefined);
+  } catch (err) {
+    console.warn("MediaRecorder build failed:", err);
+    finishTeardown();
+    return false;
+  }
+
+  rec.chunks = [];
+  recorder.addEventListener("dataavailable", e => {
+    if (e.data && e.data.size > 0) rec.chunks.push(e.data);
+  });
+  // The 'stop' event is the single teardown path, whether the stop was
+  // user-initiated or spontaneous (e.g. the mic track ended).
+  recorder.addEventListener("stop", async () => {
+    const blob = new Blob(rec.chunks, { type: recorder.mimeType || mime || "audio/webm" });
+    const cb = rec.callbacks;
+    rec.recorder = null;
+    rec.chunks = [];
+    rec.active = false;
+    rec.callbacks = null;
+    releaseMic();
+    // Show the stopped state immediately; transcription happens afterward and
+    // delivers its result via onUtterance.
+    if (cb && cb.onStop) cb.onStop();
+    await finalizeUtterance(blob, cb);
+  });
+  recorder.start();
+  rec.recorder = recorder;
+  if (callbacks.onStart) callbacks.onStart();
   return true;
 }
 
-export function stopConversation() {
-  if (!conv.active) return;
-  conv.active = false;
-  conv.suppressed = false;
-  if (conv.rafHandle) cancelAnimationFrame(conv.rafHandle);
-  conv.rafHandle = 0;
-
-  // If audio is being recorded, decide whether to flush it through /transcribe
-  // before teardown. Only flush when VAD thinks the user is mid-utterance —
-  // toggling off during silence should not bill Whisper for an empty buffer.
-  if (conv.recorder && conv.recorder.state !== "inactive") {
-    conv.pendingStop = true;
-    const mode = conv.speaking ? "finalize" : "abort";
-    conv.speaking = false;
-    stopRecorder(mode);
-    return;
+export function stopRecording() {
+  if (!rec.active) return;
+  rec.active = false;
+  const recorder = rec.recorder;
+  if (recorder && recorder.state !== "inactive") {
+    // Let the 'stop' event handler transcribe, release the mic, and fire onStop.
+    try { recorder.stop(); } catch { finishTeardown(); }
+  } else {
+    // No live recorder yet — the mic is still opening. startRecording() will
+    // observe rec.active === false and bail; tear down whatever exists now.
+    finishTeardown();
   }
-  conv.speaking = false;
-  completeStop();
 }
 
-export function suppressForTTS() {
-  if (!conv.active || conv.suppressed) return;
-  conv.suppressed = true;
-  conv.speaking = false;
-  // Drop any in-flight utterance; we don't want to ship a partial captured
-  // before the TTS started.
-  stopRecorder("abort");
-}
-
-export function resumeAfterTTS() {
-  if (!conv.active || !conv.suppressed) return;
-  conv.suppressed = false;
-  conv.speaking = false;
-  armRecorder();
-}
-
-export function isInConversation() { return conv.active; }
+export function isRecording() { return rec.active; }
 
 function blobToBase64(blob) {
   return new Promise((resolve, reject) => {
@@ -387,6 +263,8 @@ function blobToBase64(blob) {
 // outside of input/textarea focus.
 export function bindMicKeybind(getKey, trigger) {
   window.addEventListener("keydown", e => {
+    // Ignore OS key-repeat while the key is held — one press = one toggle.
+    if (e.repeat) return;
     const tag = (document.activeElement && document.activeElement.tagName) || "";
     if (tag === "INPUT" || tag === "TEXTAREA") return;
     const key = getKey();
