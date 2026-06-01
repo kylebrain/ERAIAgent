@@ -269,6 +269,32 @@ bypasses the `/ask` endpoint entirely and returns a random Elden Ring quote
 from a local bank — handy for exercising the full voice pipeline (STT → render
 → TTS) without depending on the Bedrock RAG path.
 
+**Global mic hotkey (optional, Windows).** The in-page mic keybind only fires
+while the browser tab has focus. To toggle recording without alt-tabbing back —
+e.g. while playing the game fullscreen — use
+[AutoHotkey v2](https://www.autohotkey.com/) to bind a true OS-global hotkey that
+focuses the guide tab and forwards a key to the page. A ready-to-use script ships
+at [`web/mic.ahk`](web/mic.ahk):
+
+1. Install **AutoHotkey v2** (the script is v2-only and won't load under v1).
+2. Double-click `web/mic.ahk` to run it — it sits in the tray (right-click → Exit
+   to stop, → Reload after edits).
+3. In the guide, open the gear menu and set **Mic keybind** to **F9**.
+
+Now pressing **F8** anywhere focuses the guide tab and toggles the mic. The
+script forwards **F9** (not F8) to the page on purpose: AHK installs a keyboard
+hook, so a single shared key would let its own `Send` re-trigger the hotkey and
+loop forever — F8 global → F9 page sidesteps that.
+
+Notes:
+- The guide must be the **foreground tab** in its Chrome window — Chrome's window
+  title reflects only the active tab, so a backgrounded guide tab won't be found.
+- `ahk_exe chrome.exe` in the script scopes the match to Chrome; for another
+  browser change it (e.g. `msedge.exe`) or drop it.
+- To rebind, edit the keys in `web/mic.ahk` and the in-page Mic keybind together —
+  keep them different and avoid keys the game uses.
+- If Chrome runs elevated (as admin), AHK must too, or its keystrokes are blocked.
+
 ### Phase 5b — Pronunciation lexicon (one-time, ~$1)
 
 Polly mispronounces fictional proper nouns by default. A one-time pipeline
