@@ -85,7 +85,17 @@ Resources:
             Statement:
               - Effect: Allow
                 Action: bedrock:InvokeModel
-                Resource: !Sub arn:aws:bedrock:${AWS::Region}::foundation-model/us.anthropic.claude-haiku-4-5-20251001
+                Resource:
+                  - !Sub arn:aws:bedrock:${AWS::Region}:${AWS::AccountId}:inference-profile/us.anthropic.claude-haiku-4-5-20251001-v1:0
+                  - !Sub arn:aws:bedrock:us-east-1::foundation-model/anthropic.claude-haiku-4-5-20251001-v1:0
+                  - !Sub arn:aws:bedrock:us-east-2::foundation-model/anthropic.claude-haiku-4-5-20251001-v1:0
+                  - !Sub arn:aws:bedrock:us-west-2::foundation-model/anthropic.claude-haiku-4-5-20251001-v1:0
+              - Effect: Allow
+                Action:
+                  - aws-marketplace:ViewSubscriptions
+                  - aws-marketplace:Subscribe
+                  - aws-marketplace:Unsubscribe
+                Resource: "*"
               - Effect: Allow
                 Action:
                   - bedrock:Retrieve

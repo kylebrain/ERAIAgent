@@ -1,0 +1,126 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: One-shot scheduled teardown of elden-ring-agent stack with email notification
+
+Parameters:
+  TargetStack:
+    Type: String
+    Default: elden-ring-agent
+  NotifyEmail:
+    Type: String
+    Default: kylebrain@gmail.com
+
+Resources:
+  NotificationTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: elden-ring-teardown-notify
+      DisplayName: Elden Ring Teardown
+      Subscription:
+        - Protocol: email
+          Endpoint: !Ref NotifyEmail
+
+  TeardownRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal: {Service: lambda.amazonaws.com}
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+        - arn:aws:iam::aws:policy/AdministratorAccess
+
+  TeardownFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: elden-ring-teardown
+      Runtime: python3.12
+      Handler: index.handler
+      Timeout: 900
+      Role: !GetAtt TeardownRole.Arn
+      Environment:
+        Variables:
+          TARGET_STACK: !Ref TargetStack
+          TOPIC_ARN: !Ref NotificationTopic
+          SELF_STACK: !Ref AWS::StackName
+      Code:
+        ZipFile: |
+          import os, time, boto3
+          from botocore.exceptions import ClientError
+
+          cfn = boto3.client('cloudformation')
+          sns = boto3.client('sns')
+          TARGET = os.environ['TARGET_STACK']
+          TOPIC = os.environ['TOPIC_ARN']
+          SELF = os.environ['SELF_STACK']
+
+          def stack_status(name):
+              try:
+                  r = cfn.describe_stacks(StackName=name)
+                  s = r['Stacks'][0]
+                  return s['StackStatus'], s.get('StackStatusReason', '')
+              except ClientError as e:
+                  if 'does not exist' in str(e):
+                      return None, None
+                  raise
+
+          def notify(subject, message):
+              sns.publish(TopicArn=TOPIC, Subject=subject[:99], Message=message)
+
+          def handler(event, context):
+              status, _ = stack_status(TARGET)
+              if status is None:
+                  notify('[elden-ring] Teardown: target already gone',
+                         f'Stack {TARGET} is already deleted. Removing teardown infra now.')
+                  cfn.delete_stack(StackName=SELF)
+                  return {'status': 'already_gone'}
+              if status != 'DELETE_IN_PROGRESS':
+                  cfn.delete_stack(StackName=TARGET)
+              deadline = time.time() + 13 * 60
+              final, reason = status, ''
+              while time.time() < deadline:
+                  time.sleep(20)
+                  final, reason = stack_status(TARGET)
+                  if final is None:
+                      final = 'DELETE_COMPLETE'
+                      break
+                  if final in ('DELETE_COMPLETE', 'DELETE_FAILED'):
+                      break
+              if final == 'DELETE_COMPLETE':
+                  notify('[elden-ring] Teardown complete',
+                         f'Stack {TARGET} deleted at {time.strftime("%Y-%m-%d %H:%M:%S UTC")}. '
+                         f'Cleaning up teardown infra now.')
+                  cfn.delete_stack(StackName=SELF)
+                  return {'status': 'success'}
+              notify(f'[elden-ring] Teardown FAILED: {final}',
+                     f'Stack: {TARGET}\nStatus: {final}\nReason: {reason}')
+              return {'status': 'failed', 'cfn_status': final, 'reason': reason}
+
+  TeardownSchedule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: elden-ring-teardown-schedule
+      Description: Fire once at 09:00 UTC on 2026-06-01
+      ScheduleExpression: cron(0 9 1 6 ? 2026)
+      State: ENABLED
+      Targets:
+        - Arn: !GetAtt TeardownFunction.Arn
+          Id: TeardownTarget
+
+  SchedulePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref TeardownFunction
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+      SourceArn: !GetAtt TeardownSchedule.Arn
+
+Outputs:
+  TopicArn:
+    Value: !Ref NotificationTopic
+  FunctionArn:
+    Value: !GetAtt TeardownFunction.Arn
+  ScheduleExpression:
+    Value: cron(0 9 1 6 ? 2026)

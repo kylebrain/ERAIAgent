@@ -8,7 +8,7 @@ import boto3
 
 KB_ID = os.environ["KB_ID"]
 REGION = os.environ.get("BEDROCK_REGION", os.environ.get("AWS_REGION", "us-east-1"))
-MODEL_ID = "us.anthropic.claude-haiku-4-5-20251001"
+MODEL_ID = "us.anthropic.claude-haiku-4-5-20251001-v1:0"
 NUM_RESULTS = 6
 
 bedrock_agent = boto3.client("bedrock-agent-runtime", region_name=REGION)

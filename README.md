@@ -224,11 +224,16 @@ aws cloudformation deploy \
    `<meta name="api-endpoint">` tag to the `ApiEndpoint` value from the
    CloudFormation outputs.
 
-2. Upload the whole `web/` directory so HTML, CSS, and JS modules all land with
-   correct content types (the AWS CLI infers MIME types from extension):
+2. Upload the whole `web/` directory and invalidate the CloudFront cache:
    ```bash
-   aws s3 sync web/ s3://"$WEB_BUCKET"/ --delete
+   scripts/deploy_web.sh
    ```
+   This wraps `aws s3 sync` but forces the Content-Type per extension. A plain
+   `aws s3 sync` on Windows uploads `.js` files as `text/plain` (the CLI reads
+   MIME types from the registry, where the entry is often missing), which
+   breaks strict module loaders with: *"Expected a JavaScript-or-Wasm module
+   script but the server responded with a MIME type of text/plain"*. The
+   script also invalidates CloudFront if `CLOUDFRONT_DISTRIBUTION_ID` is set.
 
 3. Open the `WebsiteUrl` from the CloudFormation outputs in your browser.
 
