@@ -8,6 +8,20 @@ Parameters:
     Description: Bedrock Knowledge Base ID (created manually in console after first deploy)
     Default: PLACEHOLDER
 
+  AcmCertificateArn:
+    Type: String
+    Description: ACM certificate ARN for eldenring.kylebrain.com (must be in us-east-1). Leave blank to use the default CloudFront certificate.
+    Default: ""
+
+  WebAclArn:
+    Type: String
+    Description: WAF Web ACL ARN attached to the CloudFront distribution (required by the Shield/WAF subscription). Leave blank if no WAF is attached.
+    Default: ""
+
+Conditions:
+  HasCustomCert: !Not [!Equals [!Ref AcmCertificateArn, ""]]
+  HasWebAcl: !Not [!Equals [!Ref WebAclArn, ""]]
+
 Globals:
   Function:
     Runtime: python3.12
@@ -236,7 +250,14 @@ Resources:
       DistributionConfig:
         Enabled: true
         DefaultRootObject: index.html
-        PriceClass: PriceClass_100
+        Aliases: !If [HasCustomCert, [eldenring.kylebrain.com], !Ref AWS::NoValue]
+        ViewerCertificate: !If
+          - HasCustomCert
+          - AcmCertificateArn: !Ref AcmCertificateArn
+            SslSupportMethod: sni-only
+            MinimumProtocolVersion: TLSv1.2_2021
+          - !Ref AWS::NoValue
+        WebACLId: !If [HasWebAcl, !Ref WebAclArn, !Ref AWS::NoValue]
         Origins:
           - Id: WebS3Origin
             DomainName: !GetAtt WebBucket.RegionalDomainName

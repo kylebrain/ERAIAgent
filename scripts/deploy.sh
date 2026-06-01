@@ -44,9 +44,11 @@ DEPLOY_ARGS=(
   --stack-name "$STACK_NAME"
   --capabilities CAPABILITY_NAMED_IAM
 )
-if [[ -n "$KB_ID" ]]; then
-  DEPLOY_ARGS+=(--parameter-overrides "KnowledgeBaseId=$KB_ID")
-fi
+PARAM_OVERRIDES=()
+[[ -n "$KB_ID" ]] && PARAM_OVERRIDES+=("KnowledgeBaseId=$KB_ID")
+[[ -n "${ACM_CERT_ARN:-}" ]] && PARAM_OVERRIDES+=("AcmCertificateArn=$ACM_CERT_ARN")
+[[ -n "${WEB_ACL_ARN:-}" ]] && PARAM_OVERRIDES+=("WebAclArn=$WEB_ACL_ARN")
+[[ ${#PARAM_OVERRIDES[@]} -gt 0 ]] && DEPLOY_ARGS+=(--parameter-overrides "${PARAM_OVERRIDES[@]}")
 aws cloudformation deploy "${DEPLOY_ARGS[@]}"
 
 echo "==> done"
