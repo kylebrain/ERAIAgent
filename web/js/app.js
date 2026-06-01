@@ -1,6 +1,7 @@
 import * as settings from "./settings.js";
 import * as speech from "./speech.js";
 import { randomQuote } from "./quotes.js";
+import { render as renderMarkdown, toPlainText } from "./markdown.js";
 
 const chat = document.getElementById("chat");
 const questionEl = document.getElementById("question");
@@ -83,7 +84,7 @@ async function ask() {
 
     if (settings.get("testMode")) thinking.remove();
 
-    let html = `<div class="label">Elden Ring Guide</div>${escape(answer).replace(/\n/g, "<br>")}`;
+    let html = `<div class="label">Elden Ring Guide</div>${renderMarkdown(answer)}`;
     if (sources && sources.length) {
       const items = sources
         .filter(s => s.excerpt)
@@ -91,11 +92,13 @@ async function ask() {
         .join("");
       html += `<details class="sources"><summary>Sources (${sources.length})</summary>${items}</details>`;
     }
-    const bubble = addBubble("agent", html, { speakable: answer });
+    // TTS reads plain prose, not the Markdown markers.
+    const spoken = toPlainText(answer);
+    const bubble = addBubble("agent", html, { speakable: spoken });
 
     if (settings.get("autoSpeak")) {
       const speakerBtn = bubble.querySelector(".speaker-btn");
-      if (speakerBtn) playBubble(speakerBtn, answer);
+      if (speakerBtn) playBubble(speakerBtn, spoken);
     }
   } catch (err) {
     thinking.remove();

@@ -117,6 +117,66 @@ header .subtitle {
   align-self: flex-end;
 }
 
+/* Rendered Markdown inside agent bubbles. */
+.bubble.agent p { margin: 0 0 8px; }
+.bubble.agent > p:last-child { margin-bottom: 0; }
+.bubble.agent ul,
+.bubble.agent ol { margin: 6px 0 8px; padding-left: 22px; }
+.bubble.agent li { margin: 3px 0; }
+.bubble.agent li::marker { color: var(--gold-dim); }
+.bubble.agent strong { color: var(--gold); font-weight: 700; }
+.bubble.agent em { font-style: italic; }
+.bubble.agent del { color: var(--text-dim); }
+.bubble.agent a { color: var(--gold); text-decoration: underline; }
+.bubble.agent h1,
+.bubble.agent h2,
+.bubble.agent h3,
+.bubble.agent h4,
+.bubble.agent h5,
+.bubble.agent h6 {
+  margin: 12px 0 6px;
+  line-height: 1.3;
+  color: var(--gold);
+}
+.bubble.agent h1 { font-size: 1.25rem; }
+.bubble.agent h2 { font-size: 1.15rem; }
+.bubble.agent h3 { font-size: 1.05rem; }
+.bubble.agent h4,
+.bubble.agent h5,
+.bubble.agent h6 { font-size: 1rem; }
+.bubble.agent code {
+  font-family: 'Consolas', 'Menlo', monospace;
+  font-size: 0.85em;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1px 5px;
+}
+.bubble.agent pre {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin: 8px 0;
+  overflow-x: auto;
+}
+.bubble.agent pre code {
+  border: none;
+  background: none;
+  padding: 0;
+}
+.bubble.agent blockquote {
+  margin: 8px 0;
+  padding-left: 12px;
+  border-left: 3px solid var(--gold-dim);
+  color: var(--text-dim);
+}
+.bubble.agent hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 12px 0;
+}
+
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
 
 #input-area {
