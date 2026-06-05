@@ -13,6 +13,10 @@ const gearBtn = document.getElementById("gear-toggle");
 const panel = document.getElementById("settings-panel");
 const micBtn = document.getElementById("mic");
 
+// Multi-turn conversation history, in-memory for this session only (cleared on
+// hard refresh). Each entry is { role: "user" | "assistant", content }.
+const history = [];
+
 const endpoint = settings.apiEndpoint();
 if (!endpoint || endpoint === "REPLACE_WITH_API_GATEWAY_URL") {
   banner.style.display = "block";
@@ -70,7 +74,7 @@ async function ask() {
       const res = await fetch(`${endpoint}/ask`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question }),
+        body: JSON.stringify({ question, history: history.slice(-100) }),
       });
       const data = await res.json();
       thinking.remove();
@@ -80,6 +84,11 @@ async function ask() {
       }
       answer = data.answer;
       sources = data.sources;
+      // Record the completed turn so the next request carries context. Only real
+      // (non-test) exchanges are kept, and only on success, so history stays a
+      // clean alternating user/assistant sequence.
+      history.push({ role: "user", content: question });
+      history.push({ role: "assistant", content: answer });
     }
 
     if (settings.get("testMode")) thinking.remove();

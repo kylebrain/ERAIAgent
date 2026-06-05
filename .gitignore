@@ -229,3 +229,4 @@ spatial_docs/
 .env
 infra/packaged.yaml
 scripts/commands.sh
+notes/

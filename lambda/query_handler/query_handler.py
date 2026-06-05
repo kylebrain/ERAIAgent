@@ -10,6 +10,8 @@ KB_ID = os.environ["KB_ID"]
 REGION = os.environ.get("BEDROCK_REGION", os.environ.get("AWS_REGION", "us-east-1"))
 MODEL_ID = "us.anthropic.claude-haiku-4-5-20251001-v1:0"
 NUM_RESULTS = 6
+MAX_HISTORY_MESSAGES = 100
+MAX_HISTORY_CONTENT = 1000
 
 bedrock_agent = boto3.client("bedrock-agent-runtime", region_name=REGION)
 bedrock = boto3.client("bedrock-runtime", region_name=REGION)
@@ -43,10 +45,14 @@ def handler(event, context):
     except (json.JSONDecodeError, AttributeError):
         return _err(400, "Request body must be JSON with a 'question' field.")
 
+    history = _sanitize_history(body.get("history"))
+
     if not question:
         return _err(400, "'question' field is required.")
     if len(question) > 1000:
         return _err(400, "Question must be 1000 characters or fewer.")
+
+    print(f"Question: {question!r} | History ({len(history)} msgs): {history}")
 
     # 1. Retrieve relevant chunks from the Knowledge Base
     try:
@@ -72,6 +78,7 @@ def handler(event, context):
 
     # 2. Generate answer with Claude Haiku
     prompt = f"Context:\n{context_text}\n\nQuestion: {question}"
+    messages = history + [{"role": "user", "content": prompt}]
     try:
         response = bedrock.invoke_model(
             modelId=MODEL_ID,
@@ -79,7 +86,7 @@ def handler(event, context):
                 "anthropic_version": "bedrock-2023-05-31",
                 "max_tokens": 600,
                 "system": SYSTEM_PROMPT,
-                "messages": [{"role": "user", "content": prompt}],
+                "messages": messages,
             }),
         )
         result = json.loads(response["body"].read())
@@ -99,6 +106,38 @@ def handler(event, context):
     ]
 
     return _ok({"answer": answer, "sources": sources})
+
+
+def _sanitize_history(raw) -> list:
+    """Coerce client-supplied conversation history into a valid Haiku messages list.
+
+    Keeps only well-formed {role, content} turns, caps length and per-message size,
+    and ensures the sequence starts with a 'user' turn so it's a valid prefix to the
+    current grounded question. Anything malformed is dropped rather than rejected, so
+    a slightly-off payload still answers.
+    """
+    if not isinstance(raw, list):
+        return []
+
+    cleaned = []
+    for item in raw:
+        if not isinstance(item, dict):
+            continue
+        role = item.get("role")
+        content = item.get("content")
+        if role not in ("user", "assistant") or not isinstance(content, str):
+            continue
+        content = content.strip()
+        if not content:
+            continue
+        cleaned.append({"role": role, "content": content[:MAX_HISTORY_CONTENT]})
+
+    # Keep the most recent turns, then trim any leading non-'user' message so the
+    # final messages array (history + current user turn) starts with 'user'.
+    cleaned = cleaned[-MAX_HISTORY_MESSAGES:]
+    while cleaned and cleaned[0]["role"] != "user":
+        cleaned.pop(0)
+    return cleaned
 
 
 def _ok(body: dict) -> dict:
